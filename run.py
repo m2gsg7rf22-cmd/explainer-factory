@@ -15,6 +15,12 @@ def caption_for(r): return (r["caption"] + "\n\n" + " ".join(r.get("hashtags", [
 def post_one(cfg, r):
     """Post to every enabled platform. LIVE=1 (env / repo variable) switches off dry-run and enables platforms whose session exists."""
     live = os.getenv("LIVE") == "1"; res = []
+    if cfg.get("buffer", {}).get("enabled") and os.getenv("BUFFER_API_KEY"):   # preferred path: Buffer posts to Instagram + TikTok
+        from pipeline import host, buffer
+        try:
+            url = host.upload(r["video"], r["id"]); ids = buffer.publish(cfg, url, r["caption"], r.get("title", r["id"]), r.get("hashtags", []), live)
+            print("[buffer]", "LIVE" if live else "DRAFT", ids); host.prune(); return "posted" if live else "dry_run"
+        except Exception as e: print("[buffer] FAILED:", e); return "failed"
     for name, env in (("instagram", "IG_STORAGE_STATE"), ("tiktok", "TT_STORAGE_STATE")):
         c = cfg.get(name, {})
         if not (c.get("enabled") or (live and os.getenv(env))): continue
@@ -80,7 +86,7 @@ def install_service():
 def main():
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest="cmd", required=True)
     for n in ("make", "preview", "gen", "ig-post"): sp.add_parser(n).add_argument("arg", nargs="+")
-    for n in ("queue", "serve", "ig-login", "tt-login", "once", "export-secrets", "install-service", "status"): sp.add_parser(n)
+    for n in ("queue", "serve", "ig-login", "tt-login", "buffer-check", "once", "export-secrets", "install-service", "status"): sp.add_parser(n)
     a = ap.parse_args(); cfg = make_video.load_cfg()
     if a.cmd == "make": make_video.make(a.arg[0], cfg=cfg)
     elif a.cmd == "preview": preview.preview(a.arg[0], cfg)
@@ -91,6 +97,8 @@ def main():
         from pipeline import instagram; instagram.login(cfg)
     elif a.cmd == "tt-login":
         from pipeline import tiktok; tiktok.login(cfg)
+    elif a.cmd == "buffer-check":
+        from pipeline import buffer; buffer.check()
     elif a.cmd == "once": once(cfg)
     elif a.cmd == "export-secrets": export_secrets(cfg)
     elif a.cmd == "ig-post":

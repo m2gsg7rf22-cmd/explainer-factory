@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: false
 permissions:
   contents: write
+  models: read
 jobs:
   make-and-post:
     runs-on: ubuntu-latest
@@ -33,10 +34,18 @@ jobs:
           mkdir -p models/kokoro
           [ -f models/kokoro/kokoro-v1.0.onnx ] || curl -fL -o models/kokoro/kokoro-v1.0.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
           [ -f models/kokoro/voices-v1.0.bin ]  || curl -fL -o models/kokoro/voices-v1.0.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+      - name: Buffer schema check (manual runs only)
+        if: github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        env: {BUFFER_API_KEY: "${{ secrets.BUFFER_API_KEY }}"}
+        run: python run.py buffer-check
       - name: Render one video and post it
         env:
           IG_STORAGE_STATE: ${{ secrets.IG_STORAGE_STATE }}
           TT_STORAGE_STATE: ${{ secrets.TT_STORAGE_STATE }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
           LIVE: ${{ vars.LIVE_POSTING }}
         run: python run.py once
       - uses: actions/upload-artifact@v4

@@ -26,9 +26,10 @@ tts:
 
 # ===== Script writing (optional local LLM; the system works without it using storyboards/) =====
 llm:
-  enabled: false
-  backend: ollama                 # ollama | openai   (openai = llama.cpp server / LM Studio / vLLM)
-  url: http://127.0.0.1:11434
+  enabled: true
+  backend: github_models          # github_models (free, runs in GitHub Actions with its built-in token) | ollama | openai
+  models: ["openai/gpt-4.1", "openai/gpt-4.1-mini"]   # tried in order
+  url: http://127.0.0.1:11434     # only for ollama / openai backends
   model: qwen2.5:14b-instruct
   topics_file: topics.txt         # one topic idea per line, used when the storyboard bank runs out
 
@@ -53,3 +54,10 @@ tiktok:
   profile_dir: .tt_profile
   headless: true
   dry_run: true
+
+# ===== Buffer (preferred publisher: posts to the Instagram + TikTok channels connected in Buffer) =====
+buffer:
+  enabled: true
+  channels:
+    instagram: "6aef7999e29c69a171988369"
+    tiktok: "6aef79eae29c69a1719886f1"

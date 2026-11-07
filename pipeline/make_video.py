@@ -34,7 +34,7 @@ def make(storyboard_path, out_mp4=None, cfg=None, keep_frames=False, only_frames
         run(["ffmpeg", "-v", "error", "-y", "-i", narr, "-af", "loudnorm=I=-16:TP=-1.5", "-ar", "44100", "-ac", "2", mix])
     out_mp4 = out_mp4 or os.path.join(ROOT, "out", "videos", f"{sid}.mp4"); os.makedirs(os.path.dirname(out_mp4), exist_ok=True)
     run(["ffmpeg", "-v", "error", "-y", "-framerate", str(cfg["render"]["fps"]), "-i", os.path.join(frames, "f%05d.jpg"), "-i", mix,
-         "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", out_mp4])
+         "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-maxrate", "6M", "-bufsize", "12M", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", out_mp4])
     if not keep_frames: shutil.rmtree(frames, ignore_errors=True)
     print(f"[{sid}] done in {time.time()-t0:.0f}s -> {out_mp4}")
     return out_mp4
