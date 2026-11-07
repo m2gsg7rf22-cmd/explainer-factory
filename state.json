@@ -4,9 +4,23 @@
   "airtag",
   "airplane_mode",
   "ai_agents",
-  "ai_image"
+  "ai_image",
+  "openai"
  ],
- "ready": [],
+ "ready": [
+  {
+   "id": "openai",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/openai.mp4",
+   "title": "How does OpenAI raise billions in funding?",
+   "caption": "OpenAI reportedly raised $11B | Why does it matter? Follow for more AI explained. Source: techcrunch.com",
+   "hashtags": [
+    "#tech",
+    "#openai",
+    "#funding",
+    "#ai"
+   ]
+  }
+ ],
  "posted": [],
  "topics_done": [
   "How does a refrigerator keep things cold?",
@@ -51,7 +65,8 @@
   "How does a heat pump cool and heat a house?"
  ],
  "news_used": [
-  "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/"
+  "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
+  "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 2
+ "counter": 3
 }
