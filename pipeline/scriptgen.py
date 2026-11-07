@@ -8,16 +8,19 @@ def _chat(cfg, system, user):
     l = cfg["llm"]
     if l["backend"] == "github_models":   # free inference for GitHub accounts; in Actions the built-in GITHUB_TOKEN works (permissions: models: read)
         tok = os.getenv("MODELS_TOKEN") or os.getenv("GITHUB_TOKEN"); last = None
-        for model in l.get("models", [l["model"]]):
-            body = {"model": model, "temperature": 0.7, "response_format": {"type": "json_object"}, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
-            req = urllib.request.Request("https://models.github.ai/inference/chat/completions", json.dumps(body).encode(), {"Content-Type": "application/json", "Accept": "application/vnd.github+json", "User-Agent": "explainer-factory/1.0", "Authorization": f"Bearer {tok}", "X-GitHub-Api-Version": "2022-11-28"})
-            try:
-                resp = urllib.request.urlopen(req, timeout=300); raw = resp.read()
-                try: return json.loads(raw)["choices"][0]["message"]["content"]
-                except Exception: raise RuntimeError(f"HTTP {resp.status} bad body: {raw[:300]!r}")
-            except urllib.error.HTTPError as e: last = e; print(f"[llm] {model} HTTP {e.code}: {e.read()[:300]!r}")
-            except Exception as e: last = e; print(f"[llm] {model} failed: {str(e)[:300]}")
-        raise RuntimeError(f"all GitHub Models failed: {last}")
+        endpoints = [("https://models.github.ai/inference/chat/completions", l.get("models", [l["model"]])),
+                     ("https://models.inference.ai.azure.com/chat/completions", [m.split("/")[-1] for m in l.get("models", [l["model"]])])]
+        for url, models in endpoints:
+            for model in models:
+                body = {"model": model, "temperature": 0.7, "response_format": {"type": "json_object"}, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+                req = urllib.request.Request(url, json.dumps(body).encode(), {"Content-Type": "application/json", "Accept": "application/vnd.github+json", "User-Agent": "explainer-factory/1.0", "Authorization": f"Bearer {tok}", "X-GitHub-Api-Version": "2022-11-28"})
+                try:
+                    resp = urllib.request.urlopen(req, timeout=300); raw = resp.read()
+                    try: return json.loads(raw)["choices"][0]["message"]["content"]
+                    except Exception: raise RuntimeError(f"HTTP {resp.status} bad body: {raw[:200]!r}")
+                except urllib.error.HTTPError as e: last = e; print(f"[llm] {url.split('/')[2]} {model} HTTP {e.code}: {e.read()[:200]!r}")
+                except Exception as e: last = e; print(f"[llm] {url.split('/')[2]} {model} failed: {str(e)[:200]}")
+        raise RuntimeError(f"all GitHub Models endpoints failed: {last}")
     if l["backend"] == "ollama":
         body = {"model": l["model"], "stream": False, "format": "json", "options": {"temperature": 0.7, "num_ctx": 16384}, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
         req = urllib.request.Request(l["url"] + "/api/chat", json.dumps(body).encode(), {"Content-Type": "application/json"})
