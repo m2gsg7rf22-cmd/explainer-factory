@@ -1,0 +1,397 @@
+{
+ "id": "airplane_mode",
+ "title": "What does airplane mode actually do?",
+ "ig_caption": "Your phone is shouting at cell towers all day. Here's what airplane mode really switches off.",
+ "hashtags": [
+  "#airplanemode",
+  "#howitworks",
+  "#didyouknow",
+  "#everydaytech",
+  "#explained"
+ ],
+ "objects": [
+  {
+   "prefab": "phone",
+   "id": "ph",
+   "pos": [
+    0,
+    0.95,
+    0
+   ],
+   "rot": [
+    0,
+    0.5,
+    0
+   ],
+   "scale": 1.5,
+   "screen": "airplane",
+   "xray": true
+  },
+  {
+   "prefab": "tower",
+   "id": "t1",
+   "pos": [
+    -5,
+    0,
+    -6
+   ]
+  },
+  {
+   "prefab": "tower",
+   "id": "t2",
+   "pos": [
+    5.5,
+    0,
+    -8
+   ]
+  },
+  {
+   "prefab": "tower",
+   "id": "t3",
+   "pos": [
+    0.5,
+    0,
+    -12
+   ]
+  },
+  {
+   "prefab": "plane",
+   "id": "pl",
+   "pos": [
+    0,
+    7,
+    -3
+   ],
+   "scale": 1.0,
+   "rot": [
+    0,
+    0.6,
+    0.0
+   ],
+   "hidden": true
+  }
+ ],
+ "beats": [
+  {
+   "say": "Your phone is *shouting* | all day long. | Airplane mode makes it stop.",
+   "cam": {
+    "look": "ph",
+    "dist": 3.6,
+    "az": 20,
+    "el": 8,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "ph.antenna",
+     "r": 1.2,
+     "n": 4,
+     "speed": 0.5,
+     "color": "#ff6ad5",
+     "face": "cam"
+    }
+   ]
+  },
+  {
+   "say": "It constantly talks to cell towers, | even when you're not using it.",
+   "cam": {
+    "look": [
+     0,
+     1.6,
+     -4
+    ],
+    "dist": 11,
+    "az": 8,
+    "el": 6,
+    "orbit": 16
+   },
+   "fx": [
+    {
+     "t": "beam",
+     "from": "ph.antenna",
+     "to": "t1.top",
+     "arc": 1.2,
+     "color": "#ff6ad5"
+    },
+    {
+     "t": "beam",
+     "from": "ph.antenna",
+     "to": "t2.top",
+     "arc": 1.5,
+     "color": "#6ac1ff",
+     "at": 1.2
+    },
+    {
+     "t": "label",
+     "on": "t1.top",
+     "text": "Cell tower",
+     "dy": -90,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "On the ground, that's simple. | A tower is usually close by.",
+   "cam": {
+    "look": "t1",
+    "dist": 7,
+    "az": -10,
+    "el": 8,
+    "orbit": -14
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "t1.tip",
+     "r": 1.6,
+     "n": 3,
+     "color": "#6ac1ff",
+     "face": "cam"
+    }
+   ]
+  },
+  {
+   "say": "But *10 kilometers* up, | your phone can see lots of towers at once.",
+   "cam": {
+    "look": [
+     0,
+     6.5,
+     -5
+    ],
+    "dist": 10,
+    "az": 5,
+    "el": 10,
+    "orbit": 10
+   },
+   "fx": [
+    {
+     "t": "fade",
+     "obj": "pl",
+     "to": 1,
+     "dur": 0.6
+    },
+    {
+     "t": "stat",
+     "value": "10 km",
+     "sub": "cruising altitude",
+     "at": 0.8
+    },
+    {
+     "t": "beam",
+     "from": [
+      0,
+      6.6,
+      -3
+     ],
+     "to": "t1.top",
+     "arc": -0.5,
+     "at": 1.4
+    },
+    {
+     "t": "beam",
+     "from": [
+      0,
+      6.6,
+      -3
+     ],
+     "to": "t2.top",
+     "arc": -0.5,
+     "at": 1.8
+    },
+    {
+     "t": "beam",
+     "from": [
+      0,
+      6.6,
+      -3
+     ],
+     "to": "t3.top",
+     "arc": -0.5,
+     "at": 2.2
+    }
+   ]
+  },
+  {
+   "say": "It keeps jumping between them, | and that can *disrupt* networks on the ground.",
+   "cam": {
+    "look": [
+     0,
+     3,
+     -5
+    ],
+    "dist": 12,
+    "az": 30,
+    "el": 14,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "t1.tip",
+     "r": 1.8,
+     "n": 3,
+     "color": "#ff4f6e",
+     "face": "cam"
+    },
+    {
+     "t": "ring",
+     "on": "t2.tip",
+     "r": 1.8,
+     "n": 3,
+     "color": "#ff4f6e",
+     "face": "cam",
+     "at": 0.4
+    },
+    {
+     "t": "ring",
+     "on": "t3.tip",
+     "r": 1.8,
+     "n": 3,
+     "color": "#ff4f6e",
+     "face": "cam",
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "The signal can also cause tiny *interference* | with aircraft electronics.",
+   "cam": {
+    "look": "pl",
+    "dist": 6,
+    "az": 40,
+    "el": 12,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": [
+      -0.8,
+      6.8,
+      -3
+     ],
+     "to": [
+      0.9,
+      6.8,
+      -3
+     ],
+     "amp": 0.14,
+     "color": "#ff6ad5",
+     "freq": 6
+    },
+    {
+     "t": "label",
+     "on": "pl.nose",
+     "text": "Rare, but possible",
+     "dy": -120,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "say": "Tap airplane mode, | and every radio switches *off*.",
+   "cam": {
+    "look": "ph",
+    "dist": 3.4,
+    "az": -15,
+    "el": 8,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "fade",
+     "obj": "t1",
+     "to": 0.15,
+     "dur": 0.5
+    },
+    {
+     "t": "fade",
+     "obj": "t2",
+     "to": 0.15,
+     "dur": 0.5
+    },
+    {
+     "t": "fade",
+     "obj": "t3",
+     "to": 0.15,
+     "dur": 0.5
+    },
+    {
+     "t": "label",
+     "on": "ph.antenna",
+     "text": "Radios off",
+     "dy": -120
+    },
+    {
+     "t": "pulse",
+     "on": "ph.chip",
+     "r": 0.05
+    }
+   ]
+  },
+  {
+   "say": "You can still turn *Wi-Fi* and Bluetooth back on. | Most airlines allow it.",
+   "cam": {
+    "look": "ph",
+    "dist": 3.0,
+    "az": 10,
+    "el": 14,
+    "orbit": 18
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "ph.screen",
+     "r": 0.8,
+     "n": 3,
+     "color": "#38e0b0",
+     "face": "cam"
+    },
+    {
+     "t": "label",
+     "on": "ph.screen",
+     "text": "Wi-Fi: ON",
+     "dy": -150,
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "say": "Fun fact: | in flight, a phone that keeps searching | drains its *battery* faster.",
+   "cam": {
+    "look": "ph",
+    "dist": 3.4,
+    "az": -30,
+    "el": 10,
+    "orbit": 22
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "ph.battery",
+     "text": "Battery",
+     "sub": "drains while searching",
+     "dy": -170
+    },
+    {
+     "t": "pulse",
+     "on": "ph.battery",
+     "r": 0.1,
+     "beats": 4
+    }
+   ]
+  },
+  {
+   "say": "So it's less about danger, | and more about *caution*.",
+   "cam": {
+    "look": "ph",
+    "dist": 4.2,
+    "az": 30,
+    "el": 10,
+    "orbit": 25
+   },
+   "fx": []
+  }
+ ]
+}

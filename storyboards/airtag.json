@@ -1,0 +1,390 @@
+{
+ "id": "airtag",
+ "title": "How does an AirTag find your keys without GPS?",
+ "ig_caption": "An AirTag has no GPS. So how does it find your keys? The answer is millions of strangers' phones.",
+ "hashtags": [
+  "#airtag",
+  "#howitworks",
+  "#didyouknow",
+  "#apple",
+  "#everydaytech"
+ ],
+ "objects": [
+  {
+   "prefab": "airtag",
+   "id": "tag",
+   "pos": [
+    0,
+    0,
+    0
+   ],
+   "scale": 2.2
+  },
+  {
+   "prefab": "phone",
+   "id": "p1",
+   "pos": [
+    -4.5,
+    0.6,
+    -2
+   ],
+   "rot": [
+    -1.4,
+    0.6,
+    0.2
+   ],
+   "screen": "home"
+  },
+  {
+   "prefab": "phone",
+   "id": "p2",
+   "pos": [
+    4.2,
+    0.6,
+    -3.5
+   ],
+   "rot": [
+    -1.4,
+    -0.6,
+    0.0
+   ],
+   "screen": "home"
+  },
+  {
+   "prefab": "phone",
+   "id": "p3",
+   "pos": [
+    -1.5,
+    0.6,
+    -6.5
+   ],
+   "rot": [
+    -1.4,
+    0.2,
+    0.0
+   ],
+   "screen": "home"
+  },
+  {
+   "prefab": "cloud",
+   "id": "cl",
+   "pos": [
+    0,
+    5.5,
+    -9
+   ],
+   "scale": 2.0
+  },
+  {
+   "prefab": "phone",
+   "id": "mine",
+   "pos": [
+    2.6,
+    2.0,
+    5.0
+   ],
+   "rot": [
+    0,
+    -0.4,
+    0
+   ],
+   "screen": "map",
+   "scale": 1.4
+  }
+ ],
+ "beats": [
+  {
+   "say": "An AirTag has *no GPS*. | So how does it find your keys?",
+   "cam": {
+    "look": "tag",
+    "dist": 4.5,
+    "az": 25,
+    "el": 24,
+    "orbit": 30
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "tag.shell",
+     "r": 1.4,
+     "n": 3,
+     "color": "#7a6bff"
+    },
+    {
+     "t": "pulse",
+     "on": "tag.chip",
+     "r": 0.1
+    }
+   ]
+  },
+  {
+   "say": "Inside, there's a tiny chip | and a Bluetooth radio.",
+   "cam": {
+    "look": "tag.chip",
+    "dist": 2.2,
+    "az": 50,
+    "el": 40,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "tag.chip",
+     "text": "Bluetooth chip",
+     "dy": -130
+    },
+    {
+     "t": "label",
+     "on": "tag.battery",
+     "text": "Coin battery",
+     "dy": -190,
+     "dx": 40,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "All day, it whispers a *signal*: | \"I'm here. I'm here.\"",
+   "cam": {
+    "look": "tag",
+    "dist": 8,
+    "az": 20,
+    "el": 28,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.1,
+      0
+     ],
+     "r": 3.5,
+     "n": 4,
+     "speed": 0.4,
+     "color": "#6ac1ff"
+    }
+   ]
+  },
+  {
+   "say": "Any nearby iPhone | can hear that whisper.",
+   "cam": {
+    "look": [
+     0,
+     0.5,
+     -2
+    ],
+    "dist": 11,
+    "az": 5,
+    "el": 24,
+    "orbit": 14
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.1,
+      0
+     ],
+     "r": 5.5,
+     "n": 3,
+     "speed": 0.35,
+     "color": "#6ac1ff"
+    },
+    {
+     "t": "pulse",
+     "on": "p1",
+     "r": 0.35,
+     "at": 0.8
+    },
+    {
+     "t": "pulse",
+     "on": "p2",
+     "r": 0.35,
+     "at": 1.4
+    },
+    {
+     "t": "pulse",
+     "on": "p3",
+     "r": 0.35,
+     "at": 2.0
+    }
+   ]
+  },
+  {
+   "say": "Those phones know where *they* are. | So they quietly pass along the location.",
+   "cam": {
+    "look": [
+     0,
+     3,
+     -5
+    ],
+    "dist": 13,
+    "az": 20,
+    "el": 18,
+    "orbit": -18
+   },
+   "fx": [
+    {
+     "t": "beam",
+     "from": "p1",
+     "to": "cl",
+     "arc": 1.0,
+     "color": "#9be2ff"
+    },
+    {
+     "t": "beam",
+     "from": "p2",
+     "to": "cl",
+     "arc": 1.0,
+     "color": "#9be2ff",
+     "at": 0.5
+    },
+    {
+     "t": "beam",
+     "from": "p3",
+     "to": "cl",
+     "arc": 1.0,
+     "color": "#9be2ff",
+     "at": 1.0
+    },
+    {
+     "t": "label",
+     "on": "cl",
+     "text": "Encrypted",
+     "dy": -110,
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "say": "It's *encrypted*. | Nobody sees who helped, | not even Apple.",
+   "cam": {
+    "look": "cl",
+    "dist": 6,
+    "az": -10,
+    "el": 10,
+    "orbit": -14
+   },
+   "fx": [
+    {
+     "t": "sparkle",
+     "on": "cl",
+     "r": 1.6,
+     "n": 60,
+     "color": "#c0b0ff"
+    },
+    {
+     "t": "label",
+     "on": "cl",
+     "text": "End-to-end",
+     "sub": "encrypted",
+     "dy": -150
+    }
+   ]
+  },
+  {
+   "say": "Then it shows up | on *your* map.",
+   "cam": {
+    "look": "mine",
+    "dist": 4.2,
+    "az": -25,
+    "el": 8,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "beam",
+     "from": "cl",
+     "to": "mine",
+     "arc": 1.6,
+     "color": "#ff6ad5"
+    },
+    {
+     "t": "pulse",
+     "on": "mine.screen",
+     "r": 0.1,
+     "at": 1.0
+    }
+   ]
+  },
+  {
+   "say": "And when you're close, | it can guide you *within centimeters*.",
+   "cam": {
+    "look": "tag",
+    "dist": 5,
+    "az": 40,
+    "el": 30,
+    "orbit": -30
+   },
+   "fx": [
+    {
+     "t": "stat",
+     "value": "~10 cm",
+     "sub": "precision finding",
+     "at": 0.3
+    },
+    {
+     "t": "ring",
+     "on": "tag.speaker",
+     "r": 0.8,
+     "n": 3,
+     "color": "#ff6ad5",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "say": "If someone slips one into your bag, | your iPhone will *warn* you.",
+   "cam": {
+    "look": "mine",
+    "dist": 4.0,
+    "az": -10,
+    "el": 10,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "mine",
+     "text": "AirTag found moving with you",
+     "dy": -170
+    },
+    {
+     "t": "pulse",
+     "on": "mine.screen",
+     "r": 0.12,
+     "beats": 4
+    }
+   ]
+  },
+  {
+   "say": "A tiny speaker, | and a *chirp*.",
+   "cam": {
+    "look": "tag.speaker",
+    "dist": 2.4,
+    "az": -20,
+    "el": 35,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "pulse",
+     "on": "tag.speaker",
+     "r": 0.1,
+     "beats": 6
+    },
+    {
+     "t": "ring",
+     "on": "tag.speaker",
+     "r": 1.0,
+     "n": 4,
+     "speed": 1.2,
+     "color": "#ff6ad5"
+    }
+   ]
+  }
+ ]
+}

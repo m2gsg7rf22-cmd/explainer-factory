@@ -1,0 +1,55 @@
+# ===== Channel identity (shown on the final "Follow" card) =====
+channel:
+  name: "your.handle"          # @handle shown on the card
+  sub: "Your Channel Name"     # second line on the card
+  cta: "Follow for more."      # pill under the card
+  cta_say: "Follow for more everyday tech, explained."   # spoken on the end card ("" = silent)
+  avatar: ""                   # optional path to a square png/jpg inside this folder, e.g. assets/avatar.jpg
+
+# ===== Video =====
+render:
+  workers: 4          # parallel browser tabs (set to your CPU cores)
+  fps: 30
+  quality: 90         # jpeg quality of intermediate frames
+  music: true         # generated ambient bed under the voice (no downloads, no copyright issues)
+
+# ===== Voice (all offline). engine: auto = kokoro -> piper -> espeak =====
+tts:
+  engine: auto
+  piper_voice: models/piper/en_US-ryan-high.onnx
+  kokoro_model: models/kokoro/kokoro-v1.0.onnx
+  kokoro_voices: models/kokoro/voices-v1.0.bin
+  kokoro_voice: am_michael
+  speed: 1.0
+  length_scale: 1.0
+  cta_seconds: 3.0
+
+# ===== Script writing (optional local LLM; the system works without it using storyboards/) =====
+llm:
+  enabled: false
+  backend: ollama                 # ollama | openai   (openai = llama.cpp server / LM Studio / vLLM)
+  url: http://127.0.0.1:11434
+  model: qwen2.5:14b-instruct
+  topics_file: topics.txt         # one topic idea per line, used when the storyboard bank runs out
+
+# ===== Daily schedule: 3 videos per day (local time of the machine) =====
+schedule:
+  times: ["09:30", "14:30", "19:30"]
+  videos_per_day: 3
+  generate_hours_before: 3        # videos are rendered ahead of time so a slow render never misses a slot
+
+# ===== Instagram (browser login, no API) =====
+instagram:
+  enabled: false
+  profile_dir: .ig_profile        # the logged-in browser session is stored here
+  username_env: IG_USER           # optional: read from .env / environment
+  password_env: IG_PASS
+  headless: true
+  dry_run: true                   # true = go through the upload flow but stop before pressing Share
+
+# ===== TikTok (browser login, no API) =====
+tiktok:
+  enabled: false
+  profile_dir: .tt_profile
+  headless: true
+  dry_run: true

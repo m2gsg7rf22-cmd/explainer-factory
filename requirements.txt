@@ -1,0 +1,5 @@
+kokoro-onnx
+playwright
+pyyaml
+numpy
+pillow

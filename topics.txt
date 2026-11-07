@@ -1,0 +1,41 @@
+# One topic per line. Used by the local LLM when the hand-written storyboards run out.
+How does a refrigerator keep things cold?
+How does a touchscreen know where your finger is?
+How does GPS know where you are?
+How does a QR code store information?
+How does a smoke detector detect smoke?
+How does a washing machine spin so fast without shaking apart?
+How does a lithium-ion battery store energy?
+How does a fingerprint scanner recognize you?
+How does Face ID work in the dark?
+How does a thermostat decide when to turn on?
+How does contactless payment work with just a tap?
+How does a camera autofocus?
+How does a USB-C cable carry power and data?
+How does a hard drive store data?
+How does a solid-state drive remember data without power?
+How does bluetooth connect two devices?
+How does a robot vacuum avoid falling down stairs?
+How does an electric kettle know when to switch off?
+How does a car's anti-lock braking system work?
+How does a wireless charger charge without a cable?
+How does a smart speaker hear "Hey" from across the room?
+How does noise-cancelling in a phone call work?
+How does an induction cooktop heat a pan but not your hand?
+How does a smartwatch measure your heart rate?
+How does streaming video load so fast?
+How does a rice cooker know when the rice is done?
+How does a printer put ink exactly where it needs to go?
+How does a car key fob unlock your car?
+How does a barcode scanner read a product?
+How does an air fryer cook with almost no oil?
+How does a hearing aid separate speech from noise?
+How does a drone stay stable in the air?
+How does a microphone turn sound into electricity?
+How does a TV make millions of colors?
+How does a password get stored safely?
+How does the internet find a website from its name?
+How does an elevator know which floor to stop at?
+How does a sprinkler system know when to water?
+How does an electric toothbrush clean better?
+How does a heat pump cool and heat a house?

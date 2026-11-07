@@ -1,0 +1,355 @@
+{
+ "id": "microwave",
+ "title": "How does a microwave heat food?",
+ "ig_caption": "A microwave doesn't heat from the inside. Here's what it really does to the water in your food.",
+ "hashtags": [
+  "#microwave",
+  "#physics",
+  "#howitworks",
+  "#didyouknow",
+  "#everydayscience"
+ ],
+ "objects": [
+  {
+   "prefab": "microwave",
+   "id": "mw",
+   "pos": [
+    0,
+    0,
+    0
+   ],
+   "scale": 1.5
+  }
+ ],
+ "beats": [
+  {
+   "say": "A microwave doesn't heat food | from the *inside*.",
+   "cam": {
+    "look": "mw",
+    "dist": 7,
+    "az": 22,
+    "el": 14,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "pulse",
+     "on": "mw.cup",
+     "r": 0.2
+    }
+   ]
+  },
+  {
+   "say": "It starts with a part called | the *magnetron*.",
+   "cam": {
+    "look": "mw.magnetron",
+    "dist": 4,
+    "az": 50,
+    "el": 15,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "mw.magnetron",
+     "text": "Magnetron",
+     "dy": -140
+    },
+    {
+     "t": "pulse",
+     "on": "mw.magnetron",
+     "r": 0.2
+    }
+   ]
+  },
+  {
+   "say": "It creates *microwaves*, | a kind of radio wave.",
+   "cam": {
+    "look": "mw",
+    "dist": 6,
+    "az": 15,
+    "el": 20,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": "mw.magnetron",
+     "to": "mw.cup",
+     "amp": 0.14,
+     "freq": 8,
+     "color": "#ff6ad5"
+    },
+    {
+     "t": "stat",
+     "value": "2.45 GHz",
+     "sub": "the frequency",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "say": "They bounce around the metal box | until they hit your food.",
+   "cam": {
+    "look": "mw",
+    "dist": 7,
+    "az": 0,
+    "el": 40,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "beam",
+     "from": "mw.magnetron",
+     "to": [
+      -0.7,
+      0.6,
+      -0.3
+     ],
+     "arc": 0.1,
+     "color": "#ff6ad5"
+    },
+    {
+     "t": "beam",
+     "from": [
+      -0.7,
+      0.6,
+      -0.3
+     ],
+     "to": "mw.cup",
+     "arc": 0.1,
+     "color": "#ff6ad5",
+     "at": 0.7
+    }
+   ]
+  },
+  {
+   "say": "Water molecules *flip back and forth* | billions of times a second.",
+   "cam": {
+    "look": "mw.water",
+    "dist": 2.4,
+    "az": 25,
+    "el": 25,
+    "orbit": 30
+   },
+   "fx": [
+    {
+     "t": "sparkle",
+     "on": "mw.water",
+     "r": 0.35,
+     "n": 70,
+     "color": "#6ac1ff"
+    },
+    {
+     "t": "spin",
+     "obj": "mw.water",
+     "rps": 2.0
+    }
+   ]
+  },
+  {
+   "say": "All that jiggling creates *friction*, | and friction is heat.",
+   "cam": {
+    "look": "mw.water",
+    "dist": 2.2,
+    "az": -30,
+    "el": 18,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "color",
+     "obj": "mw.water",
+     "to": "#ff5a3d",
+     "dur": 2.5
+    },
+    {
+     "t": "ring",
+     "on": "mw.water",
+     "r": 0.5,
+     "n": 3,
+     "color": "#ff7a3d"
+    }
+   ]
+  },
+  {
+   "say": "The turntable spins | because the waves leave *hot and cold spots*.",
+   "cam": {
+    "look": "mw.turntable",
+    "dist": 4,
+    "az": 10,
+    "el": 45,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "spin",
+     "obj": "mw.turntable",
+     "rps": 0.4
+    },
+    {
+     "t": "label",
+     "on": "mw.turntable",
+     "text": "Turntable",
+     "dy": -120
+    }
+   ]
+  },
+  {
+   "say": "Fun fact: | it heats only the outer centimeter or so. | The rest warms by *conduction*.",
+   "cam": {
+    "look": "mw.cup",
+    "dist": 3.0,
+    "az": 20,
+    "el": 20,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "mw.cup",
+     "r": 0.5,
+     "n": 3,
+     "color": "#ff7a3d"
+    },
+    {
+     "t": "label",
+     "on": "mw.cup",
+     "text": "Heat spreads inward",
+     "dy": -150
+    }
+   ]
+  },
+  {
+   "say": "So why does a bowl of soup | get hot at the *edges* first?",
+   "cam": {
+    "look": "mw.cup",
+    "dist": 3.4,
+    "az": 35,
+    "el": 22,
+    "orbit": -25
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "mw.cup",
+     "r": 0.7,
+     "n": 3,
+     "color": "#ff7a3d"
+    },
+    {
+     "t": "label",
+     "on": "mw.cup",
+     "text": "Edges heat first",
+     "dy": -150,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "say": "Because microwaves only reach about | an *inch* into the food.",
+   "cam": {
+    "look": "mw.cup",
+    "dist": 2.6,
+    "az": -30,
+    "el": 15,
+    "orbit": 30
+   },
+   "fx": [
+    {
+     "t": "stat",
+     "value": "~1 inch",
+     "sub": "how deep waves reach",
+     "at": 0.4
+    },
+    {
+     "t": "sparkle",
+     "on": "mw.water",
+     "r": 0.3,
+     "n": 60,
+     "color": "#ff7a3d"
+    }
+   ]
+  },
+  {
+   "say": "Anything deeper | has to be warmed by *heat spreading*.",
+   "cam": {
+    "look": "mw.water",
+    "dist": 2.4,
+    "az": 10,
+    "el": 30,
+    "orbit": -25
+   },
+   "fx": [
+    {
+     "t": "color",
+     "obj": "mw.water",
+     "to": "#ff9a3d",
+     "dur": 2.0
+    },
+    {
+     "t": "flow",
+     "from": [
+      -0.12,
+      0.3,
+      0
+     ],
+     "to": "mw.water",
+     "n": 50,
+     "spread": 0.12,
+     "color": "#ffb070"
+    }
+   ]
+  },
+  {
+   "say": "That's why stirring halfway | gives you a *hotter* meal.",
+   "cam": {
+    "look": "mw.cup",
+    "dist": 3.0,
+    "az": 25,
+    "el": 20,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "spin",
+     "obj": "mw.cup",
+     "rps": 0.8
+    },
+    {
+     "t": "label",
+     "on": "mw.cup",
+     "text": "Stir halfway",
+     "dy": -150
+    }
+   ]
+  },
+  {
+   "say": "And the door has a *metal mesh*. | The holes are too small for the waves.",
+   "cam": {
+    "look": "mw.door",
+    "dist": 5,
+    "az": -15,
+    "el": 8,
+    "orbit": -15
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "mw.door",
+     "text": "Metal mesh",
+     "sub": "blocks microwaves",
+     "dy": -150
+    },
+    {
+     "t": "ring",
+     "on": "mw.door",
+     "r": 1.0,
+     "n": 2,
+     "color": "#38e0b0",
+     "face": "cam"
+    }
+   ]
+  }
+ ]
+}

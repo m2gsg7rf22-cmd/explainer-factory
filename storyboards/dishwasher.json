@@ -1,0 +1,477 @@
+{
+ "id": "dishwasher",
+ "title": "How does a dishwasher actually clean?",
+ "ig_caption": "Your dishwasher uses less water than washing by hand. Here's the trick. Follow for more everyday tech explained.",
+ "hashtags": [
+  "#howitworks",
+  "#didyouknow",
+  "#everydaytech",
+  "#science",
+  "#explained"
+ ],
+ "objects": [
+  {
+   "prefab": "dishwasher",
+   "id": "dw",
+   "pos": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "beats": [
+  {
+   "say": "Your dishwasher uses *less water* | than washing by hand. | Here's the trick.",
+   "cam": {
+    "look": [
+     0,
+     0.8,
+     0
+    ],
+    "dist": 6.2,
+    "az": 28,
+    "el": 14,
+    "orbit": 14,
+    "dolly": 0.6
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.01,
+      0
+     ],
+     "r": 1.4,
+     "n": 3,
+     "color": "#6f7bff"
+    },
+    {
+     "t": "pulse",
+     "on": "dw.body",
+     "r": 0.01,
+     "beats": 2
+    }
+   ]
+  },
+  {
+   "say": "First, it takes in just a few liters of water | and heats it to about *60 degrees*.",
+   "cam": {
+    "look": "dw.floor",
+    "dist": 3.4,
+    "az": 18,
+    "el": 38,
+    "orbit": 10
+   },
+   "fx": [
+    {
+     "t": "flow",
+     "from": [
+      0,
+      1.4,
+      0
+     ],
+     "to": [
+      0,
+      0.2,
+      0
+     ],
+     "n": 70,
+     "spread": 0.6,
+     "color": "#6ac1ff",
+     "speed": 0.8
+    },
+    {
+     "t": "color",
+     "obj": "dw.heater",
+     "to": "#ff7a3d",
+     "at": 1.5,
+     "dur": 1.2
+    },
+    {
+     "t": "ring",
+     "on": "dw.heater",
+     "r": 0.9,
+     "color": "#ff7a3d",
+     "at": 1.6
+    },
+    {
+     "t": "stat",
+     "value": "60\u00b0C",
+     "sub": "wash temperature",
+     "at": 2.0
+    }
+   ]
+  },
+  {
+   "say": "A pump pushes that water | up into the *spray arms*.",
+   "cam": {
+    "look": "dw.pump",
+    "dist": 3.0,
+    "az": 55,
+    "el": 22,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "dw.pump",
+     "text": "Pump",
+     "dy": -110
+    },
+    {
+     "t": "beam",
+     "from": "dw.pump",
+     "to": "dw.hub",
+     "arc": 0.5,
+     "color": "#6ac1ff",
+     "at": 0.8
+    },
+    {
+     "t": "flow",
+     "from": "dw.pump",
+     "to": "dw.hub",
+     "arc": 0.5,
+     "n": 30,
+     "spread": 0.1,
+     "color": "#9be2ff",
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "say": "The arms spin | while water shoots out of tiny holes.",
+   "cam": {
+    "look": "dw.sprayArm",
+    "dist": 2.8,
+    "az": 12,
+    "el": 32,
+    "orbit": 40
+   },
+   "fx": [
+    {
+     "t": "spin",
+     "obj": "dw.sprayArm",
+     "rps": 0.45
+    },
+    {
+     "t": "arrow",
+     "from": [
+      -0.3,
+      0.25,
+      0
+     ],
+     "to": [
+      -0.3,
+      0.75,
+      0
+     ],
+     "at": 0.4
+    },
+    {
+     "t": "arrow",
+     "from": [
+      0.1,
+      0.25,
+      0
+     ],
+     "to": [
+      0.1,
+      0.8,
+      0
+     ],
+     "at": 0.6
+    },
+    {
+     "t": "arrow",
+     "from": [
+      0.4,
+      0.25,
+      0
+     ],
+     "to": [
+      0.4,
+      0.75,
+      0
+     ],
+     "at": 0.8
+    },
+    {
+     "t": "label",
+     "on": "dw.sprayArm",
+     "text": "Spray arm",
+     "dy": -150,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "say": "And that spinning isn't a motor. | It's *jet propulsion*.",
+   "cam": {
+    "look": "dw.sprayArm",
+    "dist": 2.0,
+    "az": -35,
+    "el": 18,
+    "orbit": -30
+   },
+   "fx": [
+    {
+     "t": "sparkle",
+     "on": "dw.sprayArm",
+     "r": 0.5,
+     "n": 50,
+     "color": "#bfc8ff"
+    },
+    {
+     "t": "label",
+     "on": "dw.sprayArm",
+     "text": "Water pushes it around",
+     "dy": -170,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "The jets blast the dishes | and the water falls back down.",
+   "cam": {
+    "look": "dw.plates",
+    "dist": 3.2,
+    "az": 5,
+    "el": 12,
+    "orbit": -18
+   },
+   "fx": [
+    {
+     "t": "rain",
+     "on": [
+      0,
+      1.15,
+      0
+     ],
+     "w": 0.9,
+     "h": 1.0,
+     "n": 90,
+     "color": "#9be2ff"
+    },
+    {
+     "t": "flow",
+     "from": [
+      0,
+      0.25,
+      0
+     ],
+     "to": [
+      0,
+      0.9,
+      0
+     ],
+     "n": 70,
+     "spread": 0.9,
+     "color": "#cfe6ff",
+     "speed": 1.0
+    }
+   ]
+  },
+  {
+   "say": "A filter catches the leftover food | so the same water can be *reused*.",
+   "cam": {
+    "look": "dw.hub",
+    "dist": 2.2,
+    "az": 40,
+    "el": 40,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "dw.hub",
+     "text": "Filter",
+     "dy": -120
+    },
+    {
+     "t": "flow",
+     "from": [
+      0.3,
+      0.6,
+      0.2
+     ],
+     "to": "dw.hub",
+     "n": 40,
+     "spread": 0.3,
+     "color": "#ffd68a",
+     "at": 0.6
+    },
+    {
+     "t": "ring",
+     "on": "dw.hub",
+     "r": 0.5,
+     "color": "#7a8cff",
+     "at": 1.0
+    }
+   ]
+  },
+  {
+   "say": "Then the detergent does the real work. | Enzymes break down *starch* and *protein*.",
+   "cam": {
+    "look": "dw.detergent",
+    "dist": 2.2,
+    "az": -20,
+    "el": 12,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "pulse",
+     "on": "dw.detergent",
+     "r": 0.16
+    },
+    {
+     "t": "sparkle",
+     "on": "dw.detergent",
+     "r": 0.45,
+     "n": 60,
+     "color": "#ff9ad8",
+     "at": 0.5
+    },
+    {
+     "t": "label",
+     "on": "dw.detergent",
+     "text": "Detergent",
+     "sub": "dispensed mid-cycle",
+     "dy": -140
+    }
+   ]
+  },
+  {
+   "say": "At the end, it *drains* the dirty water | and rinses with clean water.",
+   "cam": {
+    "look": "dw.floor",
+    "dist": 3.2,
+    "az": 60,
+    "el": 30,
+    "orbit": 30
+   },
+   "fx": [
+    {
+     "t": "flow",
+     "from": [
+      0,
+      0.2,
+      0
+     ],
+     "to": [
+      0.9,
+      0.05,
+      0.5
+     ],
+     "n": 60,
+     "spread": 0.2,
+     "color": "#8aa0ff"
+    },
+    {
+     "t": "arrow",
+     "from": [
+      0.4,
+      0.3,
+      0.2
+     ],
+     "to": [
+      1.0,
+      0.12,
+      0.5
+     ],
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "say": "Then the heater warms everything up | so the water *evaporates* by itself.",
+   "cam": {
+    "look": "dw.heater",
+    "dist": 3.0,
+    "az": 25,
+    "el": 25,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "color",
+     "obj": "dw.heater",
+     "to": "#ff3d6e",
+     "dur": 0.8
+    },
+    {
+     "t": "sparkle",
+     "on": [
+      0,
+      0.7,
+      0
+     ],
+     "r": 0.7,
+     "n": 70,
+     "color": "#ffb0c8",
+     "flat": false
+    },
+    {
+     "t": "label",
+     "on": "dw.heater",
+     "text": "Heating element",
+     "dy": -130,
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "say": "A full load matters. | A half-empty cycle uses *the same* water.",
+   "cam": {
+    "look": "dw.plates",
+    "dist": 4.5,
+    "az": -20,
+    "el": 16,
+    "orbit": 22
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "dw.plates",
+     "text": "Run it full",
+     "dy": -170
+    },
+    {
+     "t": "ring",
+     "on": "dw.plates",
+     "r": 0.8,
+     "n": 2,
+     "color": "#38e0b0",
+     "face": "cam"
+    }
+   ]
+  },
+  {
+   "say": "That's why plastic stays a little wet. | Plastic doesn't hold heat well.",
+   "cam": {
+    "look": "dw.mugs",
+    "dist": 3.0,
+    "az": 8,
+    "el": 14,
+    "orbit": -10
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "dw.mugs",
+     "r": 0.5,
+     "n": 2,
+     "color": "#c0b0ff",
+     "face": "cam"
+    }
+   ]
+  }
+ ]
+}

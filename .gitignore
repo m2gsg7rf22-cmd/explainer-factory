@@ -1,0 +1,11 @@
+node_modules/
+models/
+out/
+.venv/
+.env
+.ig_profile/
+.tt_profile/
+ig_state.json
+tt_state.json
+__pycache__/
+*.pyc

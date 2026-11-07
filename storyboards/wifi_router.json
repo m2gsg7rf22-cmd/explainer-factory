@@ -1,0 +1,359 @@
+{
+ "id": "wifi_router",
+ "title": "How does Wi-Fi turn the internet into invisible waves?",
+ "ig_caption": "Your router turns the internet into invisible radio waves. Here's the full journey from the cable to your phone.",
+ "hashtags": [
+  "#wifi",
+  "#router",
+  "#howitworks",
+  "#didyouknow",
+  "#everydaytech"
+ ],
+ "objects": [
+  {
+   "prefab": "router",
+   "id": "rt",
+   "pos": [
+    0,
+    0,
+    0
+   ],
+   "scale": 2.0
+  },
+  {
+   "prefab": "server",
+   "id": "srv",
+   "pos": [
+    -6,
+    0,
+    -7
+   ],
+   "scale": 1.8
+  },
+  {
+   "prefab": "globe",
+   "id": "gl",
+   "pos": [
+    -9,
+    1.0,
+    -12
+   ],
+   "scale": 1.6
+  },
+  {
+   "prefab": "phone",
+   "id": "ph",
+   "pos": [
+    3.4,
+    0.9,
+    1.8
+   ],
+   "rot": [
+    0,
+    -0.6,
+    0
+   ],
+   "screen": "wifi",
+   "scale": 1.3
+  },
+  {
+   "prefab": "laptop",
+   "id": "lp",
+   "pos": [
+    -3.0,
+    0,
+    2.6
+   ],
+   "rot": [
+    0,
+    0.7,
+    0
+   ],
+   "scale": 1.4
+  }
+ ],
+ "beats": [
+  {
+   "say": "Wi-Fi is just *radio*. | The same kind of waves as your car radio.",
+   "cam": {
+    "look": "rt",
+    "dist": 6,
+    "az": 22,
+    "el": 18,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "rt.antenna2",
+     "r": 2.2,
+     "n": 4,
+     "speed": 0.45,
+     "color": "#6ac1ff",
+     "face": "cam"
+    }
+   ]
+  },
+  {
+   "say": "The internet reaches your home | as light or electricity in a *cable*.",
+   "cam": {
+    "look": [
+     -3,
+     1,
+     -3
+    ],
+    "dist": 14,
+    "az": 28,
+    "el": 12,
+    "orbit": -16
+   },
+   "fx": [
+    {
+     "t": "beam",
+     "from": "gl",
+     "to": "srv",
+     "arc": 1.5,
+     "color": "#9be2ff"
+    },
+    {
+     "t": "beam",
+     "from": "srv",
+     "to": "rt.body",
+     "arc": 0.6,
+     "color": "#6ac1ff",
+     "at": 1.2
+    },
+    {
+     "t": "flow",
+     "from": "srv",
+     "to": "rt.body",
+     "arc": 0.6,
+     "n": 40,
+     "spread": 0.1,
+     "color": "#cfe6ff",
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "say": "The router takes that data | and turns it into *waves*.",
+   "cam": {
+    "look": "rt",
+    "dist": 4.2,
+    "az": -20,
+    "el": 20,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": [
+      -1.2,
+      1.8,
+      0.6
+     ],
+     "to": [
+      1.2,
+      1.8,
+      0.6
+     ],
+     "amp": 0.16,
+     "color": "#6ac1ff",
+     "freq": 4
+    },
+    {
+     "t": "pulse",
+     "on": "rt.leds",
+     "r": 0.2
+    }
+   ]
+  },
+  {
+   "say": "Those waves spread out in every direction | at the speed of *light*.",
+   "cam": {
+    "look": "rt",
+    "dist": 12,
+    "az": 10,
+    "el": 32,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.3,
+      0
+     ],
+     "r": 6,
+     "n": 4,
+     "speed": 0.4,
+     "color": "#6ac1ff"
+    },
+    {
+     "t": "stat",
+     "value": "300,000 km/s",
+     "sub": "speed of light",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "say": "Your phone has a tiny *antenna* | that catches them.",
+   "cam": {
+    "look": "ph",
+    "dist": 3.4,
+    "az": 15,
+    "el": 10,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "beam",
+     "from": "rt.antenna3",
+     "to": "ph",
+     "arc": 0.8,
+     "color": "#6ac1ff"
+    },
+    {
+     "t": "label",
+     "on": "ph",
+     "text": "Antenna",
+     "dy": -150,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "Every device gets its own *address*, | so data finds the right one.",
+   "cam": {
+    "look": "rt",
+    "dist": 10,
+    "az": 5,
+    "el": 28,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "ph",
+     "text": "Phone",
+     "sub": "192.168.1.14",
+     "dy": -100
+    },
+    {
+     "t": "label",
+     "on": "lp",
+     "text": "Laptop",
+     "sub": "192.168.1.22",
+     "dy": -100,
+     "at": 0.5
+    },
+    {
+     "t": "beam",
+     "from": "rt.antenna1",
+     "to": "lp",
+     "arc": 0.6,
+     "color": "#ff6ad5",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "say": "Walls and water *weaken* the signal. | That's why the bathroom has dead spots.",
+   "cam": {
+    "look": [
+     0,
+     1,
+     0
+    ],
+    "dist": 9,
+    "az": 40,
+    "el": 18,
+    "orbit": 18
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.3,
+      0
+     ],
+     "r": 4,
+     "n": 3,
+     "color": "#ff4f6e"
+    }
+   ]
+  },
+  {
+   "say": "Low frequencies go *farther*. | High frequencies are *faster*.",
+   "cam": {
+    "look": "rt",
+    "dist": 8,
+    "az": 0,
+    "el": 24,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.3,
+      0
+     ],
+     "r": 7,
+     "n": 2,
+     "color": "#6ac1ff",
+     "speed": 0.3
+    },
+    {
+     "t": "ring",
+     "on": [
+      0,
+      0.3,
+      0
+     ],
+     "r": 2.8,
+     "n": 3,
+     "color": "#ff6ad5",
+     "speed": 0.8
+    },
+    {
+     "t": "label",
+     "on": "rt.tip1",
+     "text": "2.4 GHz: range",
+     "dy": -120
+    },
+    {
+     "t": "label",
+     "on": "rt.tip3",
+     "text": "5 GHz: speed",
+     "dy": -190
+    }
+   ]
+  },
+  {
+   "say": "And that's the whole trick: | *invisible waves*, carrying the internet.",
+   "cam": {
+    "look": "rt",
+    "dist": 6,
+    "az": -30,
+    "el": 14,
+    "orbit": 30
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "rt.antenna2",
+     "r": 2.4,
+     "n": 4,
+     "speed": 0.5,
+     "color": "#6ac1ff",
+     "face": "cam"
+    }
+   ]
+  }
+ ]
+}

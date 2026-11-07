@@ -1,0 +1,333 @@
+{
+ "id": "noise_cancelling",
+ "title": "How do noise-cancelling headphones create silence?",
+ "ig_caption": "Noise-cancelling headphones don't block sound. They add more sound to cancel it. Here's the trick.",
+ "hashtags": [
+  "#headphones",
+  "#noisecancelling",
+  "#physics",
+  "#howitworks",
+  "#didyouknow"
+ ],
+ "objects": [
+  {
+   "prefab": "headphones",
+   "id": "hp",
+   "pos": [
+    0,
+    1.2,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "scale": 1.6
+  },
+  {
+   "prefab": "chip",
+   "id": "ch",
+   "pos": [
+    0,
+    0.9,
+    1.4
+   ],
+   "scale": 1.2,
+   "hidden": true
+  }
+ ],
+ "beats": [
+  {
+   "say": "Noise-cancelling headphones | don't *block* sound.",
+   "cam": {
+    "look": "hp",
+    "dist": 6,
+    "az": 20,
+    "el": 12,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "hp.cupL",
+     "r": 1.2,
+     "n": 3,
+     "color": "#6ac1ff",
+     "face": "cam"
+    }
+   ]
+  },
+  {
+   "say": "They *add* sound | to cancel the sound.",
+   "cam": {
+    "look": "hp",
+    "dist": 5,
+    "az": -20,
+    "el": 10,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "pulse",
+     "on": "hp.cupR",
+     "r": 0.2
+    }
+   ]
+  },
+  {
+   "say": "First, tiny *microphones* | listen to the noise outside.",
+   "cam": {
+    "look": "hp.micL",
+    "dist": 3.2,
+    "az": -50,
+    "el": 12,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "label",
+     "on": "hp.micL",
+     "text": "Microphone",
+     "dy": -140
+    },
+    {
+     "t": "flow",
+     "from": [
+      -5,
+      1.0,
+      3
+     ],
+     "to": "hp.micL",
+     "n": 60,
+     "spread": 0.5,
+     "color": "#ff6ad5"
+    }
+   ]
+  },
+  {
+   "say": "A chip measures the sound wave | in real time.",
+   "cam": {
+    "look": "ch",
+    "dist": 4.2,
+    "az": 25,
+    "el": 28,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "fade",
+     "obj": "ch",
+     "to": 1,
+     "dur": 0.6
+    },
+    {
+     "t": "pulse",
+     "on": "ch.core",
+     "r": 0.12,
+     "beats": 5
+    },
+    {
+     "t": "label",
+     "on": "ch.core",
+     "text": "Processor",
+     "dy": -120,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "Then it creates the *exact opposite* wave.",
+   "cam": {
+    "look": [
+     0,
+     1.2,
+     0.8
+    ],
+    "dist": 6.5,
+    "az": 0,
+    "el": 8,
+    "orbit": 8
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": [
+      -2,
+      1.9,
+      0.8
+     ],
+     "to": [
+      2,
+      1.9,
+      0.8
+     ],
+     "amp": 0.3,
+     "color": "#ff6ad5",
+     "freq": 3,
+     "speed": 4
+    },
+    {
+     "t": "wave",
+     "from": [
+      -2,
+      0.7,
+      0.8
+     ],
+     "to": [
+      2,
+      0.7,
+      0.8
+     ],
+     "amp": 0.3,
+     "color": "#6ac1ff",
+     "freq": 3,
+     "inv": true,
+     "speed": 4,
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "say": "When the two waves meet, | one goes up while the other goes *down*.",
+   "cam": {
+    "look": [
+     0,
+     1.2,
+     0.8
+    ],
+    "dist": 6.5,
+    "az": 0,
+    "el": 8,
+    "orbit": -8
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": [
+      -2,
+      1.4,
+      0.8
+     ],
+     "to": [
+      2,
+      1.4,
+      0.8
+     ],
+     "amp": 0.3,
+     "color": "#ff6ad5",
+     "freq": 3,
+     "speed": 4
+    },
+    {
+     "t": "wave",
+     "from": [
+      -2,
+      1.4,
+      0.8
+     ],
+     "to": [
+      2,
+      1.4,
+      0.8
+     ],
+     "amp": 0.3,
+     "color": "#6ac1ff",
+     "freq": 3,
+     "inv": true,
+     "speed": 4
+    }
+   ]
+  },
+  {
+   "say": "They cancel out. | And you hear *silence*.",
+   "cam": {
+    "look": "hp",
+    "dist": 5.5,
+    "az": 15,
+    "el": 14,
+    "orbit": 20
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": [
+      -1.8,
+      1.2,
+      0.8
+     ],
+     "to": [
+      1.8,
+      1.2,
+      0.8
+     ],
+     "amp": 0.0,
+     "color": "#ffffff",
+     "freq": 3
+    },
+    {
+     "t": "label",
+     "on": "hp.cupL",
+     "text": "Silence",
+     "dy": -150,
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "say": "That's why sudden noises | like voices are *harder* to cancel.",
+   "cam": {
+    "look": "hp",
+    "dist": 6,
+    "az": 30,
+    "el": 12,
+    "orbit": -20
+   },
+   "fx": [
+    {
+     "t": "wave",
+     "from": [
+      -2,
+      1.2,
+      0.8
+     ],
+     "to": [
+      2,
+      1.2,
+      0.8
+     ],
+     "amp": 0.35,
+     "freq": 9,
+     "color": "#ff6ad5",
+     "speed": 9
+    },
+    {
+     "t": "label",
+     "on": "hp.cupR",
+     "text": "Fast changes",
+     "dy": -150
+    }
+   ]
+  },
+  {
+   "say": "It works best on *steady* sounds, | like engines and air conditioners.",
+   "cam": {
+    "look": "hp",
+    "dist": 6,
+    "az": -25,
+    "el": 10,
+    "orbit": 25
+   },
+   "fx": [
+    {
+     "t": "ring",
+     "on": "hp.padL",
+     "r": 1.0,
+     "n": 3,
+     "color": "#38e0b0",
+     "face": "cam"
+    }
+   ]
+  }
+ ]
+}

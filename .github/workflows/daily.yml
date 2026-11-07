@@ -1,0 +1,47 @@
+name: daily-video
+# 3 runs per day (UTC). Israel time (UTC+2 winter / +3 summer): 08:30/13:30/18:30 and 09:30/14:30/19:30. Edit the cron lines to change.
+on:
+  schedule:
+    - cron: "30 6 * * *"
+    - cron: "30 11 * * *"
+    - cron: "30 16 * * *"
+  workflow_dispatch:
+concurrency:
+  group: daily-video
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  make-and-post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 20, cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12", cache: pip}
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: npm ci && npx playwright install --with-deps chromium
+      - run: pip install -r requirements.txt && python -m playwright install chromium
+      - uses: actions/cache@v4
+        with: {path: models/kokoro, key: kokoro-v1.0}
+      - name: Download voice model (first run only)
+        run: |
+          mkdir -p models/kokoro
+          [ -f models/kokoro/kokoro-v1.0.onnx ] || curl -fL -o models/kokoro/kokoro-v1.0.onnx https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx
+          [ -f models/kokoro/voices-v1.0.bin ]  || curl -fL -o models/kokoro/voices-v1.0.bin  https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin
+      - name: Render one video and post it
+        env:
+          IG_STORAGE_STATE: ${{ secrets.IG_STORAGE_STATE }}
+          TT_STORAGE_STATE: ${{ secrets.TT_STORAGE_STATE }}
+          LIVE: ${{ vars.LIVE_POSTING }}
+        run: python run.py once
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: video-and-logs, path: "out/videos/*.mp4\nout/logs/*.png", retention-days: 3, if-no-files-found: ignore}
+      - name: Save state (which videos were already used)
+        if: always()
+        run: |
+          git config user.name "explainer-bot"; git config user.email "bot@users.noreply.github.com"
+          git add state.json && (git diff --cached --quiet || git commit -m "state: update" && git push) || true
