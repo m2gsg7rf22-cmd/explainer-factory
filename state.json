@@ -1,1 +1,15 @@
-{"used": ["dishwasher", "airtag", "airplane_mode"], "ready": [], "posted": [], "topics_done": [], "news_used": [], "counter": 0}
+{
+ "used": [
+  "dishwasher",
+  "airtag",
+  "airplane_mode",
+  "ai_agents"
+ ],
+ "ready": [],
+ "posted": [],
+ "topics_done": [],
+ "news_used": [
+  "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/"
+ ],
+ "counter": 1
+}
