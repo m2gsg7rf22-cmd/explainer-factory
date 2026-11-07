@@ -1,10 +1,10 @@
 # ===== Channel identity (shown on the final "Follow" card) =====
 channel:
-  name: "your.handle"          # @handle shown on the card
-  sub: "Your Channel Name"     # second line on the card
+  name: "explainit3d"          # @handle shown on the card
+  sub: "Explain It 3D"     # second line on the card
   cta: "Follow for more."      # pill under the card
   cta_say: "Follow for more everyday tech, explained."   # spoken on the end card ("" = silent)
-  avatar: ""                   # optional path to a square png/jpg inside this folder, e.g. assets/avatar.jpg
+  avatar: "assets/logo_small.png"
 
 # ===== Video =====
 render:
@@ -32,10 +32,10 @@ llm:
   model: qwen2.5:14b-instruct
   topics_file: topics.txt         # one topic idea per line, used when the storyboard bank runs out
 
-# ===== Daily schedule: 3 videos per day (local time of the machine) =====
+# ===== Daily schedule: 5 videos per day (local time of the machine) =====
 schedule:
-  times: ["09:30", "14:30", "19:30"]
-  videos_per_day: 3
+  times: ["08:30", "11:30", "14:30", "17:30", "20:30"]
+  videos_per_day: 5
   generate_hours_before: 3        # videos are rendered ahead of time so a slow render never misses a slot
 
 # ===== Instagram (browser login, no API) =====
