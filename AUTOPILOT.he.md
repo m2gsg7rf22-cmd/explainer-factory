@@ -7,14 +7,14 @@
 4. הסרטון עולה כ-Release לריפו הציבורי, ו-Buffer מפרסם אותו לאינסטגרם ולטיקטוק (מסומן כ-AI).
 5. `state.json` מתעדכן כדי לא לחזור על נושאים. אם המודל נכשל — המערכת נופלת חזרה על הבנק המוכן; אם גם הוא נגמר, הריצה נכשלת ותקבל מייל מ-GitHub.
 
-## צעדים (מהמחשב; מהטלפון — "Request Desktop Website")
-1. **מפתח Buffer:** Buffer ← Settings ← API (או developers.buffer.com) ← Create/Generate key. העתק.
-2. **הכנס אותו לריפו:** github.com/m2gsg7rf22-cmd/explainer-factory ← Settings ← Secrets and variables ← Actions ← **New repository secret** ← שם: `BUFFER_API_KEY`, ערך: המפתח.
-2ב. **מפתח מודל שפה חינמי (בלי כרטיס אשראי):** console.groq.com ← API Keys ← Create (או aistudio.google.com ← Get API key). שמור כ-secret בשם `GROQ_API_KEY` (או `GEMINI_API_KEY`) באותו מקום. נבדק: GitHub Models לא עובד בריצות של הריפו הזה (מחזיר "OK" ריק), לכן עברנו ל-Groq/Gemini.
-3. **הרשאות:** Settings ← Actions ← General ← Workflow permissions ← **Read and write permissions** ← Save.
-4. **ריצת ניסיון:** לשונית **Actions** ← daily-video ← **Run workflow**. בלי המשתנה `LIVE_POSTING` הסרטון נשמר ב-Buffer כ-**טיוטה** ולא מתפרסם. הריצה לוקחת ~15 דקות. פתח את הלוג: חפש `[buffer] DRAFT` ← הצלחה. אם יש שגיאה — שלח לי את הלוג של שלב "Buffer schema check" ושל "Render one video".
-5. **הפעלה אמיתית:** Settings ← Secrets and variables ← Actions ← לשונית **Variables** ← New variable ← `LIVE_POSTING` = `1`.
-6. סיימת. מכאן זה רץ לבד (GitHub מריץ לפי cron; הרצות יכולות להתעכב כמה דקות).
+## צעדים — רק שני סודות, ואז זה רץ לבד לתמיד (מהמחשב; מהטלפון: Request Desktop Website)
+בריפו: Settings ← Secrets and variables ← Actions ← **New repository secret**:
+1. `BUFFER_API_KEY` — Buffer ← Settings ← API ← צור מפתח.
+2. `GROQ_API_KEY` — console.groq.com ← API Keys ← Create (חינם, בלי כרטיס). אפשר במקום זה `GEMINI_API_KEY` מ-aistudio.google.com.
+
+זהו. ההרצות מתוזמנות (08:30, 11:30, 14:30, 17:30, 20:30) ומפרסמות **אוטומטית ובאמת** כשהמפתחות קיימים. אין צורך ללחוץ שום דבר נוסף; הרשאות הכתיבה כבר מוגדרות בקובץ ה-workflow.
+
+*רוצה לבדוק לפני?* הוסף משתנה (Variables) בשם `DRAFT_ONLY` עם הערך `1` — אז הסרטונים רק נשמרים ב-Buffer כטיוטה. הרץ ידנית: Actions ← daily-video ← Run workflow, חפש `[buffer] DRAFT`, ואז מחק את המשתנה.
 
 ## מה לבדוק מדי פעם
 * **Actions:** ריצה אדומה = מייל אליך. פתח את הלוג, ברוב המקרים זה מגבלת קצב של GitHub Models (ינסה שוב בריצה הבאה) או שינוי בממשק של Buffer.

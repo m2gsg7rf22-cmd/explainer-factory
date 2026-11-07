@@ -48,7 +48,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
-          LIVE: ${{ vars.LIVE_POSTING }}
+          LIVE: ${{ vars.DRAFT_ONLY == '1' && '0' || '1' }}   # live by default; set repo variable DRAFT_ONLY=1 to only save drafts in Buffer
         run: python run.py once
       - uses: actions/upload-artifact@v4
         if: always()
