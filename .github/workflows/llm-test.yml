@@ -10,6 +10,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
+      - name: Which hosts can this runner reach?
+        run: |
+          for h in models.github.ai models.inference.ai.azure.com generativelanguage.googleapis.com api.openai.com api.anthropic.com openrouter.ai huggingface.co ollama.com api.groq.com api.buffer.com github.com; do printf "%s -> " $h; curl -sS -m 8 -o /dev/null -w "%{http_code}\n" https://$h/ 2>&1 | tail -1; done
+          curl -sS -m 10 -i -X POST https://models.github.ai/inference/chat/completions -H "Authorization: Bearer ${{ github.token }}" -H "Content-Type: application/json" -d '{"model":"openai/gpt-4.1-mini","messages":[{"role":"user","content":"hi"}]}' | head -15
       - run: pip install pyyaml numpy pillow playwright
       - env: {GITHUB_TOKEN: "${{ github.token }}"}
         run: python run.py llm-test
