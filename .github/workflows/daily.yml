@@ -30,7 +30,7 @@ jobs:
         with: {python-version: "3.12"}
       - run: pip install pyyaml
       - id: d
-        env: {FORCE: "${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}"}
+        env: {FORCE: "${{ github.event_name == 'workflow_dispatch' && inputs.heartbeat != true && '1' || '0' }}"}
         run: python scripts/due.py
   make-and-post:
     needs: check
