@@ -27,7 +27,7 @@ tts:
 # ===== Script writing (optional local LLM; the system works without it using storyboards/) =====
 llm:
   enabled: true
-  backend: github_models          # github_models (free, runs in GitHub Actions with its built-in token) | ollama | openai
+  backend: auto                   # auto = Groq or Gemini free API key from env (GROQ_API_KEY / GEMINI_API_KEY) | github_models | ollama | openai
   models: ["openai/gpt-4.1", "openai/gpt-4.1-mini"]   # tried in order
   url: http://127.0.0.1:11434     # only for ollama / openai backends
   model: qwen2.5:14b-instruct

@@ -44,6 +44,8 @@ jobs:
           IG_STORAGE_STATE: ${{ secrets.IG_STORAGE_STATE }}
           TT_STORAGE_STATE: ${{ secrets.TT_STORAGE_STATE }}
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
           LIVE: ${{ vars.LIVE_POSTING }}

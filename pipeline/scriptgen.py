@@ -1,11 +1,33 @@
 """Optional: local LLM writes new storyboards (Ollama or any OpenAI-compatible local server, e.g. llama.cpp / LM Studio).
 Every candidate is verified by the real renderer (preview) and retried with the error message if it breaks."""
-import json, os, re, urllib.request, urllib.error
+import json, os, re, time, urllib.request, urllib.error
 from .spec import SPEC
 from . import make_video, preview
 
+def _post(url, body, headers):
+    req = urllib.request.Request(url, json.dumps(body).encode(), {"Content-Type": "application/json", "User-Agent": "explainer-factory/1.0", **headers})
+    for k in range(3):
+        try: return json.loads(urllib.request.urlopen(req, timeout=300).read())
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and k < 2: time.sleep(25 * (k + 1)); continue
+            raise RuntimeError(f"HTTP {e.code}: {e.read()[:200]!r}")
+
+def _auto(l, system, user):
+    """First provider that has a key and answers. Free keys: GROQ_API_KEY (console.groq.com) or GEMINI_API_KEY (aistudio.google.com)."""
+    errs = []
+    if os.getenv("GROQ_API_KEY"):
+        for m in l.get("groq_models", ["llama-3.3-70b-versatile"]):
+            try: return _post("https://api.groq.com/openai/v1/chat/completions", {"model": m, "temperature": 0.7, "response_format": {"type": "json_object"}, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}, {"Authorization": "Bearer " + os.environ["GROQ_API_KEY"]})["choices"][0]["message"]["content"]
+            except Exception as e: errs.append(f"groq {m}: {e}"); print("[llm]", errs[-1][:200])
+    if os.getenv("GEMINI_API_KEY"):
+        for m in l.get("gemini_models", ["gemini-2.0-flash", "gemini-2.5-flash"]):
+            try: return _post(f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key=" + os.environ["GEMINI_API_KEY"], {"systemInstruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": user}]}], "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json"}}, {})["candidates"][0]["content"]["parts"][0]["text"]
+            except Exception as e: errs.append(f"gemini {m}: {e}"); print("[llm]", errs[-1][:200])
+    raise RuntimeError("no LLM provider worked (set GROQ_API_KEY or GEMINI_API_KEY): " + "; ".join(errs)[:300])
+
 def _chat(cfg, system, user):
     l = cfg["llm"]
+    if l["backend"] == "auto": return _auto(l, system, user)
     if l["backend"] == "github_models":   # free inference for GitHub accounts; in Actions the built-in GITHUB_TOKEN works (permissions: models: read)
         tok = os.getenv("MODELS_TOKEN") or os.getenv("GITHUB_TOKEN"); last = None
         endpoints = [("https://models.github.ai/inference/chat/completions", l.get("models", [l["model"]])),
