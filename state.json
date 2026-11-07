@@ -5,23 +5,27 @@
   "airplane_mode",
   "ai_agents",
   "ai_image",
-  "openai"
+  "openai",
+  "microwave"
  ],
- "ready": [
+ "ready": [],
+ "posted": [
   {
-   "id": "openai",
-   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/openai.mp4",
-   "title": "How does OpenAI raise billions in funding?",
-   "caption": "OpenAI reportedly raised $11B | Why does it matter? Follow for more AI explained. Source: techcrunch.com",
+   "id": "microwave",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/microwave.mp4",
+   "title": "How does a microwave heat food?",
+   "caption": "A microwave doesn't heat from the inside. Here's what it really does to the water in your food.",
    "hashtags": [
-    "#tech",
-    "#openai",
-    "#funding",
-    "#ai"
-   ]
+    "#microwave",
+    "#physics",
+    "#howitworks",
+    "#didyouknow",
+    "#everydayscience"
+   ],
+   "dry_run": true,
+   "at": "2026-11-07T21:01:08"
   }
  ],
- "posted": [],
  "topics_done": [
   "How does a refrigerator keep things cold?",
   "How does a touchscreen know where your finger is?",
