@@ -12,6 +12,18 @@ def _post(url, body, headers):
             if e.code == 429 and k < 2: time.sleep(25 * (k + 1)); continue
             raise RuntimeError(f"HTTP {e.code}: {e.read()[:200]!r}")
 
+_LLAMA = None
+def _llamacpp(l, system, user):
+    """Fully local open-source model (no key, no account): llama-cpp-python + a Qwen GGUF file (data, downloaded once from Hugging Face)."""
+    global _LLAMA
+    from llama_cpp import Llama
+    if _LLAMA is None:
+        from huggingface_hub import hf_hub_download
+        path = hf_hub_download(repo_id=l.get("local_repo", "Qwen/Qwen2.5-3B-Instruct-GGUF"), filename=l.get("local_file", "qwen2.5-3b-instruct-q4_k_m.gguf"))
+        _LLAMA = Llama(model_path=path, n_ctx=8192, n_threads=os.cpu_count() or 4, verbose=False)
+    out = _LLAMA.create_chat_completion(messages=[{"role": "system", "content": system}, {"role": "user", "content": user}], response_format={"type": "json_object"}, temperature=0.7, max_tokens=3800)
+    return out["choices"][0]["message"]["content"]
+
 def _auto(l, system, user):
     """First provider that has a key and answers. Free keys: GROQ_API_KEY (console.groq.com) or GEMINI_API_KEY (aistudio.google.com)."""
     errs = []
@@ -23,6 +35,8 @@ def _auto(l, system, user):
         for m in l.get("gemini_models", ["gemini-2.0-flash", "gemini-2.5-flash"]):
             try: return _post(f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key=" + os.environ["GEMINI_API_KEY"], {"systemInstruction": {"parts": [{"text": system}]}, "contents": [{"role": "user", "parts": [{"text": user}]}], "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json"}}, {})["candidates"][0]["content"]["parts"][0]["text"]
             except Exception as e: errs.append(f"gemini {m}: {e}"); print("[llm]", errs[-1][:200])
+    try: return _llamacpp(l, system, user)   # keyless local model
+    except Exception as e: errs.append(f"local model: {e}"); print("[llm]", errs[-1][:200])
     raise RuntimeError("no LLM provider worked (set GROQ_API_KEY or GEMINI_API_KEY): " + "; ".join(errs)[:300])
 
 def _chat(cfg, system, user):
