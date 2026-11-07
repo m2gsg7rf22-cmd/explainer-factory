@@ -35,7 +35,7 @@ llm:
 
 # ===== Daily schedule: 5 videos per day (local time of the machine) =====
 schedule:
-  times: ["08:30", "11:30", "14:30", "17:30", "20:30"]
+  times: ["00:30", "08:30", "11:30", "14:30", "17:30", "20:30"]
   videos_per_day: 5
   generate_hours_before: 3        # videos are rendered ahead of time so a slow render never misses a slot
 
