@@ -1,6 +1,6 @@
 """Optional: local LLM writes new storyboards (Ollama or any OpenAI-compatible local server, e.g. llama.cpp / LM Studio).
 Every candidate is verified by the real renderer (preview) and retried with the error message if it breaks."""
-import json, os, re, urllib.request
+import json, os, re, urllib.request, urllib.error
 from .spec import SPEC
 from . import make_video, preview
 
@@ -10,9 +10,13 @@ def _chat(cfg, system, user):
         tok = os.getenv("MODELS_TOKEN") or os.getenv("GITHUB_TOKEN"); last = None
         for model in l.get("models", [l["model"]]):
             body = {"model": model, "temperature": 0.7, "response_format": {"type": "json_object"}, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
-            req = urllib.request.Request("https://models.github.ai/inference/chat/completions", json.dumps(body).encode(), {"Content-Type": "application/json", "Authorization": f"Bearer {tok}", "X-GitHub-Api-Version": "2022-11-28"})
-            try: return json.load(urllib.request.urlopen(req, timeout=300))["choices"][0]["message"]["content"]
-            except Exception as e: last = e; print(f"[llm] {model} failed: {str(e)[:120]}")
+            req = urllib.request.Request("https://models.github.ai/inference/chat/completions", json.dumps(body).encode(), {"Content-Type": "application/json", "Accept": "application/vnd.github+json", "User-Agent": "explainer-factory/1.0", "Authorization": f"Bearer {tok}", "X-GitHub-Api-Version": "2022-11-28"})
+            try:
+                resp = urllib.request.urlopen(req, timeout=300); raw = resp.read()
+                try: return json.loads(raw)["choices"][0]["message"]["content"]
+                except Exception: raise RuntimeError(f"HTTP {resp.status} bad body: {raw[:300]!r}")
+            except urllib.error.HTTPError as e: last = e; print(f"[llm] {model} HTTP {e.code}: {e.read()[:300]!r}")
+            except Exception as e: last = e; print(f"[llm] {model} failed: {str(e)[:300]}")
         raise RuntimeError(f"all GitHub Models failed: {last}")
     if l["backend"] == "ollama":
         body = {"model": l["model"], "stream": False, "format": "json", "options": {"temperature": 0.7, "num_ctx": 16384}, "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
