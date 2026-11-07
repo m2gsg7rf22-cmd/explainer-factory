@@ -35,6 +35,8 @@ def once(cfg):
     s = queue.ensure_ready(cfg, 1); r = queue.pop_ready()
     if not r: print("OUT OF CONTENT"); sys.exit(2)
     st = post_one(cfg, r); print("RESULT", r["id"], st)
+    if st == "manual" and os.getenv("GITHUB_ACTIONS"):
+        print("PIPELINE OK (script + render worked) but NO PUBLISHER is configured: add the BUFFER_API_KEY secret. Video not marked as posted."); sys.exit(3)
     if st in ("posted", "manual"): queue.mark_posted(r)
     elif st == "dry_run": queue.mark_posted({**r, "dry_run": True})
     else: queue.save({**queue.load(), "ready": [r] + queue.load()["ready"]}); sys.exit(1)
