@@ -37,8 +37,11 @@ def once(cfg):
     st = post_one(cfg, r); print("RESULT", r["id"], st)
     if st == "manual" and os.getenv("GITHUB_ACTIONS"):
         print("PIPELINE OK (script + render worked) but NO PUBLISHER is configured: add the BUFFER_API_KEY secret. Video not marked as posted."); sys.exit(3)
-    if st in ("posted", "manual"): queue.mark_posted(r)
-    elif st == "dry_run": queue.mark_posted({**r, "dry_run": True})
+    slot = os.getenv("SLOT")
+    def _slot_done():
+        if slot: x = queue.load(); x.setdefault("slots_done", []).append(slot); x["slots_done"] = x["slots_done"][-60:]; queue.save(x)
+    if st in ("posted", "manual"): queue.mark_posted(r); _slot_done()
+    elif st == "dry_run": queue.mark_posted({**r, "dry_run": True}); _slot_done() if os.getenv("LIVE") == "1" else None
     else: queue.save({**queue.load(), "ready": [r] + queue.load()["ready"]}); sys.exit(1)
 
 def export_secrets(cfg):

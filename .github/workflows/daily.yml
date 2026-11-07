@@ -1,24 +1,37 @@
 name: daily-video
-# 5 runs per day (UTC) = 08:30, 11:30, 14:30, 17:30, 20:30 Israel winter time (UTC+2). Edit the cron lines to change.
+# Cron every 30 min (UTC). A tiny 'check' job decides if a publishing slot (Israel time, config.yaml schedule.times) is due; only then the render job runs.
+# Missed/delayed runs are caught up automatically (up to 6 h late). Manual run: Actions > daily-video > Run workflow (tick "live" to really post; default = draft in Buffer).
 on:
   schedule:
-    - cron: "30 6 * * *"
-    - cron: "30 9 * * *"
-    - cron: "30 12 * * *"
-    - cron: "30 15 * * *"
-    - cron: "30 18 * * *"
+    - cron: "7,37 * * * *"
   workflow_dispatch:
+    inputs:
+      live: {description: "Post for real (unticked = save as draft in Buffer)", type: boolean, default: false}
 concurrency:
   group: daily-video
   cancel-in-progress: false
 permissions:
   contents: write
-  models: read
 env:
   GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
   GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      due: ${{ steps.d.outputs.due }}
+      slot: ${{ steps.d.outputs.slot }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pyyaml
+      - id: d
+        env: {FORCE: "${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}"}
+        run: python scripts/due.py
   make-and-post:
+    needs: check
+    if: needs.check.outputs.due == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -57,7 +70,8 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
-          LIVE: ${{ vars.DRAFT_ONLY == '1' && '0' || '1' }}   # live by default; set repo variable DRAFT_ONLY=1 to only save drafts in Buffer
+          SLOT: ${{ needs.check.outputs.slot }}
+          LIVE: ${{ github.event_name == 'workflow_dispatch' && (inputs.live && '1' || '0') || '1' }}
         run: python run.py once
       - uses: actions/upload-artifact@v4
         if: always()

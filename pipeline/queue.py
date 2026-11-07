@@ -14,6 +14,9 @@ def _bank(s):
     for p in bank:
         sid = os.path.splitext(os.path.basename(p))[0]
         if sid not in s["used"]: return sid, p
+    if bank:   # everything was published once: start a new cycle (re-render with another voice) so the channel never stops
+        s["used"] = []; s["cycle"] = s.get("cycle", 0) + 1; save(s)
+        p = bank[0]; return os.path.splitext(os.path.basename(p))[0], p
     return None, None
 
 def next_storyboard(cfg, s):
@@ -43,7 +46,9 @@ def ensure_ready(cfg, n=3):
         while len(s["ready"]) < n:
             sid, p = next_storyboard(cfg, s)
             if not sid: print("[queue] OUT OF CONTENT: add storyboards or enable the local LLM"); break
-            sb = json.load(open(p)); mp4 = make_video.make(p, cfg=cfg)
+            sb = json.load(open(p)); c2 = json.loads(json.dumps(cfg))
+            if s.get("cycle", 0) % 2: c2["tts"]["kokoro_voice"] = "af_heart"   # alternate voice on repeat cycles
+            mp4 = make_video.make(p, cfg=c2)
             s["used"].append(sid); s["ready"].append({"id": sid, "video": mp4, "title": sb.get("title", sid), "caption": sb.get("ig_caption", sb.get("title", "")), "hashtags": sb.get("hashtags", [])}); save(s)
         return s
 
