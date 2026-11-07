@@ -9,6 +9,12 @@ def save(s): json.dump(s, open(STATE, "w"), indent=1)
 
 PATTERN = ["news", "topic", "news", "topic", "topic"]   # 2 AI-news + 3 evergreen explainers per day
 
+def _bank_unused(s):
+    for p in sorted(glob.glob(os.path.join(ROOT, "storyboards", "*.json"))) + sorted(glob.glob(os.path.join(ROOT, "storyboards", "generated", "*.json"))):
+        sid = os.path.splitext(os.path.basename(p))[0]
+        if sid not in s["used"]: return sid, p
+    return None, None
+
 def _bank(s):
     bank = sorted(glob.glob(os.path.join(ROOT, "storyboards", "*.json"))) + sorted(glob.glob(os.path.join(ROOT, "storyboards", "generated", "*.json")))
     for p in bank:
@@ -24,6 +30,11 @@ def next_storyboard(cfg, s):
     fs = os.getenv("FORCE_STORYBOARD")
     if fs: return fs, os.path.join(ROOT, "storyboards", fs + ".json")   # manual test: skip the LLM
     s.setdefault("news_used", []); s.setdefault("counter", 0); kind = PATTERN[s["counter"] % len(PATTERN)]; s["counter"] += 1
+    strong = bool(os.getenv("GROQ_API_KEY") or os.getenv("GEMINI_API_KEY"))
+    if not strong:   # quality guard: without a strong model, publish the hand-written videos first, never auto-written NEWS (accuracy)
+        sid, p = _bank_unused(s)
+        if sid: return sid, p
+        kind = "topic"
     if cfg["llm"]["enabled"]:
         try:
             if kind == "news":

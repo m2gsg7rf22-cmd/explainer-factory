@@ -1,6 +1,6 @@
 name: daily-video
 # Cron every 30 min (UTC). A tiny 'check' job decides if a publishing slot (Israel time, config.yaml schedule.times) is due; only then the render job runs.
-# Missed/delayed runs are caught up automatically (up to 6 h late). Manual run: Actions > daily-video > Run workflow (tick "live" to really post; default = draft in Buffer).
+# Missed/delayed runs are caught up automatically (up to 3 h late). Manual run: Actions > daily-video > Run workflow (tick "live" to really post; default = draft in Buffer).
 on:
   schedule:
     - cron: "7,37 * * * *"
