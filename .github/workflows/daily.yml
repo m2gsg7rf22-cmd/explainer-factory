@@ -6,6 +6,7 @@ on:
     - cron: "7,37 * * * *"
   workflow_dispatch:
     inputs:
+      storyboard: {description: "Optional: bank storyboard id to use (skips the LLM), e.g. microwave", type: string, default: ""}
       live: {description: "Post for real (unticked = save as draft in Buffer)", type: boolean, default: false}
 concurrency:
   group: daily-video
@@ -71,6 +72,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
           SLOT: ${{ needs.check.outputs.slot }}
+          FORCE_STORYBOARD: ${{ inputs.storyboard }}
           LIVE: ${{ github.event_name == 'workflow_dispatch' && (inputs.live && '1' || '0') || '1' }}
         run: python run.py once
       - uses: actions/upload-artifact@v4

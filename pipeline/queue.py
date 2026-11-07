@@ -21,6 +21,8 @@ def _bank(s):
 
 def next_storyboard(cfg, s):
     """LLM-written storyboard (news or evergreen topic) -> falls back to the hand-written bank -> None."""
+    fs = os.getenv("FORCE_STORYBOARD")
+    if fs: return fs, os.path.join(ROOT, "storyboards", fs + ".json")   # manual test: skip the LLM
     s.setdefault("news_used", []); s.setdefault("counter", 0); kind = PATTERN[s["counter"] % len(PATTERN)]; s["counter"] += 1
     if cfg["llm"]["enabled"]:
         try:

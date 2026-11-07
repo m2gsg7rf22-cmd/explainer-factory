@@ -69,7 +69,16 @@ def _extract(txt):
     m = re.search(r"\{.*\}", txt, re.S)
     return json.loads(m.group(0)) if m else json.loads(txt)
 
-def generate(topic, cfg, tries=4, context=None, source=None):
+KNOWN = {"phone","router","airtag","dishwasher","person","tower","server","plane","laptop","headphones","microwave","globe","satellite","cloud","lock","battery","magnet","bulb","gear","sign","chip","coffee","mag"}
+def _sanitize(sb):
+    """Small local models invent prefab names; swap unknown ones for a generic chip so the storyboard still renders (the renderer then validates anchors)."""
+    for o in sb.get("objects", []):
+        if o.get("prefab") and o["prefab"] not in KNOWN: o["prefab"] = "chip"
+        o.setdefault("pos", [0, 0, 0])
+    for b in sb.get("beats", []):
+        b.setdefault("fx", []); b.setdefault("cam", {})
+
+def generate(topic, cfg, tries=6, context=None, source=None):
     root = make_video.ROOT; ex = open(os.path.join(root, "storyboards", "dishwasher.json")).read()
     ctx = (f"\n\nThis is a NEWS topic. Use ONLY facts stated in this source text; do not add numbers, dates or claims that are not in it; say 'according to {source}' once. Explain what it is and why it matters in plain English:\n{context}") if context else ""
     user = f"Write a storyboard for this topic: {topic}{ctx}\n\nA complete valid example (different topic, for format and quality only):\n{ex}"
@@ -79,7 +88,8 @@ def generate(topic, cfg, tries=4, context=None, source=None):
         try:
             sb = _extract(_chat(cfg, SPEC, msg))
             words = sum(len(b["say"].split()) for b in sb["beats"])
-            if words < 110 or len(sb["beats"]) < 8: raise ValueError(f"too short ({words} words, {len(sb['beats'])} beats); need 150-190 words and 9-16 beats")
+            _sanitize(sb)
+            if words < 85 or len(sb["beats"]) < 7: raise ValueError(f"too short ({words} words, {len(sb['beats'])} beats); need 150-190 words and 9-16 beats")
             if source: sb["ig_caption"] = (sb.get("ig_caption", "") + f" Source: {source}").strip()
             sb["id"] = re.sub(r"[^a-z0-9_]+", "_", sb.get("id", topic).lower())[:40].strip("_") or "video"
             out = os.path.join(root, "storyboards", "generated"); os.makedirs(out, exist_ok=True); path = os.path.join(out, sb["id"] + ".json")

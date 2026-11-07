@@ -16,7 +16,7 @@ def publish(cfg, video_url, caption, title, hashtags, live):
     """One post per configured channel. live=False -> saved as DRAFT in Buffer (safe test mode)."""
     res = {}
     for name, ch in cfg["buffer"]["channels"].items():
-        inp = {"channelId": ch, "schedulingType": "automatic", "mode": "shareNow", "text": caption + ("\n\n" + " ".join(hashtags) if hashtags else ""), "assets": {"videos": [{"url": video_url}]}}
+        inp = {"channelId": ch, "schedulingType": "automatic", "mode": "shareNow", "text": caption + ("\n\n" + " ".join(hashtags) if hashtags else ""), "needsApproval": False, "aiAssisted": True, "assets": [{"video": {"url": video_url}}]}
         if name == "instagram": inp["metadata"] = {"instagram": {"type": "reel", "shouldShareToFeed": True, "isAiGenerated": True}}
         if name == "tiktok": inp["metadata"] = {"tiktok": {"title": title[:90], "isAiGenerated": True}}; inp["text"] = caption[:150] + " " + " ".join(hashtags[:4])
         if not live: inp["saveToDraft"] = True
@@ -27,6 +27,8 @@ def publish(cfg, video_url, caption, title, hashtags, live):
 
 def check():
     """Prints the live schema bits we depend on, so mismatches are visible in one run."""
-    for t in ("CreatePostInput", "AssetsInput", "PostActionSuccess"):
-        d = _gql('query($n:String!){__type(name:$n){name inputFields{name type{name kind ofType{name}}} fields{name}}}', {"n": t})
-        print(t, "->", json.dumps(d["__type"])[:900])
+    d = _gql('{ __type(name:"Mutation"){ fields { name type { name kind possibleTypes { name } } } } }')
+    print("createPost ->", json.dumps([f for f in d["__type"]["fields"] if f["name"] == "createPost"])[:700])
+    for t in ("AssetInput", "CreatePostInput", "PostActionSuccess"):
+        d = _gql('query($n:String!){__type(name:$n){name inputFields{name type{name kind ofType{name kind ofType{name}}}} fields{name}}}', {"n": t})
+        print(t, "->", json.dumps(d["__type"])[:1800])
