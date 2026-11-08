@@ -2,20 +2,21 @@
  "used": [
   "ai_agents",
   "ai_image",
-  "ai_next_word"
+  "ai_next_word",
+  "airplane_mode"
  ],
  "ready": [
   {
-   "id": "ai_next_word",
-   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/ai_next_word.mp4",
-   "title": "How does ChatGPT-style AI write a whole answer?",
-   "caption": "AI chatbots don't 'know' the answer. They guess one word at a time. Here's how that turns into a whole essay.",
+   "id": "airplane_mode",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/airplane_mode.mp4",
+   "title": "What does airplane mode actually do?",
+   "caption": "Your phone is shouting at cell towers all day. Here's what airplane mode really switches off.",
    "hashtags": [
-    "#ai",
-    "#chatgpt",
-    "#artificialintelligence",
+    "#airplanemode",
     "#howitworks",
-    "#tech"
+    "#didyouknow",
+    "#everydaytech",
+    "#explained"
    ]
   }
  ],
@@ -124,7 +125,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 9,
+ "counter": 10,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
