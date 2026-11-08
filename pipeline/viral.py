@@ -1,10 +1,11 @@
 """'What is going viral right now' topics, no API keys: top-of-the-day questions from r/explainlikeimfive (the exact 'how does X work?' format)
 plus hot tech stories from Hacker News. Everything is filtered to safe, explainable subjects. Any failure just returns nothing (the queue then uses its normal sources)."""
-import json, re, urllib.request, xml.etree.ElementTree as ET, html
+import json, re, time, functools, urllib.request, xml.etree.ElementTree as ET, html
 UA = {"User-Agent": "Mozilla/5.0 (compatible; explainer-factory/1.0)"}
 BLOCK = re.compile(r"\b(trump|biden|election|politic|war|gaza|ukraine|israel|palestin|nazi|sex|porn|rape|suicide|kill|murder|drug|cocaine|abortion|covid|vaccine|cancer|religio|god|racis|terror|shoot)\w*", re.I)
 SHAPE = re.compile(r"^(eli5[:\s-]*)?(how|why|what)\b.*\?$", re.I)
 def _get(url): return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=20).read()
+@functools.lru_cache(maxsize=1)
 def eli5(limit=25):
     out = []
     try:
@@ -12,7 +13,10 @@ def eli5(limit=25):
             d = ch["data"]; out.append((d["title"], d.get("ups", 0)))
     except Exception:
         try:
-            root = ET.fromstring(_get("https://www.reddit.com/r/explainlikeimfive/top/.rss?t=day"))
+            for k in range(3):   # Reddit rate-limits bursts: retry the RSS with backoff
+                try: raw = _get("https://www.reddit.com/r/explainlikeimfive/top/.rss?t=day"); break
+                except Exception: time.sleep(8 * (k + 1))
+            root = ET.fromstring(raw)
             ns = "{http://www.w3.org/2005/Atom}"
             for i, e in enumerate(root.iter(ns + "entry")): out.append((e.findtext(ns + "title") or "", 1000 - i))
         except Exception as e: print("[viral] reddit failed:", str(e)[:80])
@@ -35,4 +39,4 @@ def pick(used):
             return {"topic": t, "source": "r/explainlikeimfive (top today)"}
     return None
 if __name__ == "__main__":
-    print("ELI5:", [(t, s) for t, s in eli5()][:8]); print("HN:", hn()[:6]); print("PICK:", pick(set()))
+    print("ELI5:", [(t, s) for t, s in eli5()][:5]); print("HN:", hn()[:6]); print("PICK:", pick(set()))
