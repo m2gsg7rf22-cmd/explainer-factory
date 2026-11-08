@@ -18,7 +18,14 @@ def post_one(cfg, r):
     if cfg.get("buffer", {}).get("enabled") and os.getenv("BUFFER_API_KEY"):   # preferred path: Buffer posts to Instagram + TikTok
         from pipeline import host, buffer
         try:
-            url = host.upload(r["video"], r["id"]); ids = buffer.publish(cfg, url, r["caption"], r.get("title", r["id"]), r.get("hashtags", []), live)
+            primary = None if os.getenv("FORCE_RAW") == "1" else host.upload(r["video"], r["id"])
+            if primary and not host.reachable(primary): print("[host] release URL not reachable yet, will fall back"); primary = None
+            cache = {}
+            def url_for(attempt):   # attempt 0: release URL; later attempts (or if unreachable): raw branch URL
+                if attempt == 0 and primary: return primary
+                if "raw" not in cache: cache["raw"] = host.raw(r["video"])
+                return cache["raw"]
+            ids = buffer.publish(cfg, url_for, r["caption"], r.get("title", r["id"]), r.get("hashtags", []), live)
             print("[buffer]", "LIVE" if live else "DRAFT", ids); host.prune(); return "posted" if live else "dry_run"
         except Exception as e: print("[buffer] FAILED:", e); return "failed"
     for name, env in (("instagram", "IG_STORAGE_STATE"), ("tiktok", "TT_STORAGE_STATE")):
@@ -42,7 +49,8 @@ def once(cfg):
         if slot: x = queue.load(); x.setdefault("slots_done", []).append(slot); x["slots_done"] = x["slots_done"][-60:]; queue.save(x)
     if st in ("posted", "manual"): queue.mark_posted(r); _slot_done()
     elif st == "dry_run": queue.mark_posted({**r, "dry_run": True}); _slot_done() if os.getenv("LIVE") == "1" else None
-    else: queue.save({**queue.load(), "ready": [r] + queue.load()["ready"]}); sys.exit(1)
+    else:
+        x = queue.load(); x["used"] = [u for u in x["used"] if u != r["id"]]; x["ready"] = []; queue.save(x); sys.exit(1)
 
 def export_secrets(cfg):
     """Pushes the saved browser sessions to GitHub Actions secrets (needs: gh auth login). Values never leave your machine except to GitHub."""

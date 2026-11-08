@@ -8,6 +8,7 @@ on:
     inputs:
       storyboard: {description: "Optional: bank storyboard id to use (skips the LLM), e.g. microwave", type: string, default: ""}
       heartbeat: {description: "Keep re-triggering itself every ~25 min (self-sustaining; cron is only a backup)", type: boolean, default: false}
+      raw_url: {description: "Test the fallback video host (raw branch) instead of the release URL", type: boolean, default: false}
       live: {description: "Post for real (unticked = save as draft in Buffer)", type: boolean, default: false}
 concurrency:
   group: daily-video
@@ -75,6 +76,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           SLOT: ${{ needs.check.outputs.slot }}
           FORCE_STORYBOARD: ${{ inputs.storyboard }}
+          FORCE_RAW: ${{ inputs.raw_url && '1' || '0' }}
           LIVE: ${{ github.event_name == 'workflow_dispatch' && (inputs.live && '1' || '0') || '1' }}
         run: python run.py once
       - uses: actions/upload-artifact@v4
