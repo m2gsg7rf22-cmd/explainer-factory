@@ -1,13 +1,13 @@
 """Decides what to publish next and keeps a buffer of finished videos. State lives in state.json."""
 import json, os, glob, threading, datetime as dt
-from . import make_video, scriptgen, news
+from . import make_video, scriptgen, news, viral
 ROOT = make_video.ROOT; STATE = os.path.join(ROOT, "state.json"); _lock = threading.Lock()
 
 def load():
     return json.load(open(STATE)) if os.path.exists(STATE) else {"used": [], "ready": [], "posted": [], "topics_done": []}
 def save(s): json.dump(s, open(STATE, "w"), indent=1)
 
-PATTERN = ["news", "topic", "news", "topic", "topic"]   # 2 AI-news + 3 evergreen explainers per day
+PATTERN = ["news", "viral", "news", "viral", "topic"]   # 2 AI-news + 2 trending questions + 1 evergreen explainer per day
 
 def _bank_unused(s):
     for p in sorted(glob.glob(os.path.join(ROOT, "storyboards", "*.json"))) + sorted(glob.glob(os.path.join(ROOT, "storyboards", "generated", "*.json"))):
@@ -42,6 +42,12 @@ def next_storyboard(cfg, s):
                 if it:
                     s["news_used"].append(it["link"]); save(s)
                     p = scriptgen.generate("What's new in AI: " + it["title"], cfg, context=it["title"] + ". " + it["summary"], source=it["source"]); return os.path.splitext(os.path.basename(p))[0], p
+            if kind == "viral":   # what people are asking right now; falls through to the evergreen list if nothing usable
+                s.setdefault("viral_used", []); v = viral.pick(set(s["viral_used"]))
+                if v:
+                    s["viral_used"] = (s["viral_used"] + [v["topic"]])[-200:]; save(s)
+                    try: p = scriptgen.generate(v["topic"], cfg, source=None); return os.path.splitext(os.path.basename(p))[0], p
+                    except Exception as e: print("[queue] viral topic failed:", v["topic"], str(e)[:120])
             tf = os.path.join(ROOT, cfg["llm"]["topics_file"])
             topics = [t.strip() for t in open(tf) if t.strip() and not t.startswith("#")] if os.path.exists(tf) else []
             for t in topics:

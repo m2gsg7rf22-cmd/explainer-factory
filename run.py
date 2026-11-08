@@ -99,7 +99,7 @@ def install_service():
 def main():
     ap = argparse.ArgumentParser(); sp = ap.add_subparsers(dest="cmd", required=True)
     for n in ("make", "preview", "gen", "ig-post"): sp.add_parser(n).add_argument("arg", nargs="+")
-    for n in ("queue", "serve", "ig-login", "tt-login", "buffer-check", "llm-test", "once", "export-secrets", "install-service", "status"): sp.add_parser(n)
+    for n in ("queue", "serve", "ig-login", "tt-login", "buffer-check", "llm-test", "viral", "once", "export-secrets", "install-service", "status"): sp.add_parser(n)
     a = ap.parse_args(); cfg = make_video.load_cfg()
     if a.cmd == "make": make_video.make(a.arg[0], cfg=cfg)
     elif a.cmd == "preview": preview.preview(a.arg[0], cfg)
@@ -110,6 +110,8 @@ def main():
         from pipeline import instagram; instagram.login(cfg)
     elif a.cmd == "tt-login":
         from pipeline import tiktok; tiktok.login(cfg)
+    elif a.cmd == "viral":
+        from pipeline import viral; print("PICK:", viral.pick(set())); print("HN:", viral.hn()[:5])
     elif a.cmd == "llm-test":
         print(scriptgen._chat(cfg, "Reply with JSON only.", 'Return {"ok": true, "word": "hello"}'))
     elif a.cmd == "buffer-check":
