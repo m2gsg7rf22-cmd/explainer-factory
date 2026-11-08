@@ -2,7 +2,7 @@
 plus hot tech stories from Hacker News. Everything is filtered to safe, explainable subjects. Any failure just returns nothing (the queue then uses its normal sources)."""
 import json, re, time, functools, urllib.request, xml.etree.ElementTree as ET, html
 UA = {"User-Agent": "Mozilla/5.0 (compatible; explainer-factory/1.0)"}
-BLOCK = re.compile(r"\b(trump|biden|election|politic|war|gaza|ukraine|israel|palestin|nazi|sex|porn|rape|suicide|kill|murder|drug|cocaine|abortion|covid|vaccine|cancer|religio|god|racis|terror|shoot)\w*", re.I)
+BLOCK = re.compile(r"\b(trump|biden|election|politic|war|gaza|ukraine|israel|palestin|nazi|sex|porn|rape|suicide|kill|murder|drug|cocaine|abortion|covid|vaccine|cancer|religio|god|racis|terror|shoot|gun|weapon|bomb|nuke|nuclear|poison|medicine|disease|nicotine|alcohol|addict|diet|calori)\w*", re.I)
 SHAPE = re.compile(r"^(eli5[:\s-]*)?(how|why|what)\b.*\?$", re.I)
 def _get(url): return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=20).read()
 @functools.lru_cache(maxsize=1)
