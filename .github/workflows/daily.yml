@@ -11,7 +11,8 @@ on:
       raw_url: {description: "Test the fallback video host (raw branch) instead of the release URL", type: boolean, default: false}
       live: {description: "Post for real (unticked = save as draft in Buffer)", type: boolean, default: false}
 concurrency:
-  group: daily-video
+  # chain/cron runs share one queue (no double posting); manual test runs get their own group so they are never cancelled by the chain
+  group: ${{ (github.event_name == 'schedule' || inputs.heartbeat == true) && 'daily-video' || format('manual-{0}', github.run_id) }}
   cancel-in-progress: false
 permissions:
   contents: write
