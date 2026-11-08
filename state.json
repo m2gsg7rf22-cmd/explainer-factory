@@ -3,20 +3,21 @@
   "ai_agents",
   "ai_image",
   "ai_next_word",
-  "airplane_mode"
+  "airplane_mode",
+  "airtag"
  ],
  "ready": [
   {
-   "id": "airplane_mode",
-   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/airplane_mode.mp4",
-   "title": "What does airplane mode actually do?",
-   "caption": "Your phone is shouting at cell towers all day. Here's what airplane mode really switches off.",
+   "id": "airtag",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/airtag.mp4",
+   "title": "How does an AirTag find your keys without GPS?",
+   "caption": "An AirTag has no GPS. So how does it find your keys? The answer is millions of strangers' phones.",
    "hashtags": [
-    "#airplanemode",
+    "#airtag",
     "#howitworks",
     "#didyouknow",
-    "#everydaytech",
-    "#explained"
+    "#apple",
+    "#everydaytech"
    ]
   }
  ],
@@ -125,7 +126,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 10,
+ "counter": 11,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
