@@ -6,7 +6,8 @@
   "airplane_mode",
   "airtag",
   "dishwasher",
-  "microwave"
+  "microwave",
+  "wifi_router"
  ],
  "ready": [],
  "posted": [
@@ -94,6 +95,21 @@
     "#everydayscience"
    ],
    "at": "2026-11-08T12:52:39"
+  },
+  {
+   "id": "wifi_router",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/wifi_router.mp4",
+   "title": "How does Wi-Fi turn the internet into invisible waves?",
+   "caption": "Your router turns the internet into invisible radio waves. Here's the full journey from the cable to your phone.",
+   "hashtags": [
+    "#wifi",
+    "#router",
+    "#howitworks",
+    "#didyouknow",
+    "#everydaytech"
+   ],
+   "dry_run": true,
+   "at": "2026-11-08T13:51:44"
   }
  ],
  "topics_done": [
