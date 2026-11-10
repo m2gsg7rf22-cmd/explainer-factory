@@ -5,7 +5,8 @@
   "ai_next_word",
   "airplane_mode",
   "airtag",
-  "dishwasher"
+  "dishwasher",
+  "microwave"
  ],
  "ready": [],
  "posted": [
@@ -206,6 +207,20 @@
     "#explained"
    ],
    "at": "2026-11-09T18:58:47"
+  },
+  {
+   "id": "microwave",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/microwave.mp4",
+   "title": "How does a microwave heat food?",
+   "caption": "A microwave doesn't heat from the inside. Here's what it really does to the water in your food.",
+   "hashtags": [
+    "#microwave",
+    "#physics",
+    "#howitworks",
+    "#didyouknow",
+    "#everydayscience"
+   ],
+   "at": "2026-11-10T06:58:18"
   }
  ],
  "topics_done": [
@@ -254,7 +269,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 20,
+ "counter": 21,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
@@ -267,7 +282,8 @@
   "2026-11-09 11:30",
   "2026-11-09 14:30",
   "2026-11-09 17:30",
-  "2026-11-09 20:30"
+  "2026-11-09 20:30",
+  "2026-11-10 08:30"
  ],
  "cycle": 2
 }
