@@ -6,7 +6,8 @@
   "airplane_mode",
   "airtag",
   "dishwasher",
-  "microwave"
+  "microwave",
+  "noise_cancelling"
  ],
  "ready": [],
  "posted": [
@@ -221,6 +222,20 @@
     "#everydayscience"
    ],
    "at": "2026-11-10T06:58:18"
+  },
+  {
+   "id": "noise_cancelling",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/noise_cancelling.mp4",
+   "title": "How do noise-cancelling headphones create silence?",
+   "caption": "Noise-cancelling headphones don't block sound. They add more sound to cancel it. Here's the trick.",
+   "hashtags": [
+    "#headphones",
+    "#noisecancelling",
+    "#physics",
+    "#howitworks",
+    "#didyouknow"
+   ],
+   "at": "2026-11-10T09:44:15"
   }
  ],
  "topics_done": [
@@ -269,7 +284,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 21,
+ "counter": 22,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
@@ -283,7 +298,8 @@
   "2026-11-09 14:30",
   "2026-11-09 17:30",
   "2026-11-09 20:30",
-  "2026-11-10 08:30"
+  "2026-11-10 08:30",
+  "2026-11-10 11:30"
  ],
  "cycle": 2
 }
