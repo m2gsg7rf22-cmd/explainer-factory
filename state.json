@@ -1,14 +1,6 @@
 {
  "used": [
-  "ai_agents",
-  "ai_image",
-  "ai_next_word",
-  "airplane_mode",
-  "airtag",
-  "dishwasher",
-  "microwave",
-  "noise_cancelling",
-  "wifi_router"
+  "ai_agents"
  ],
  "ready": [],
  "posted": [
@@ -377,6 +369,20 @@
     "#everydaytech"
    ],
    "at": "2026-11-12T09:52:38"
+  },
+  {
+   "id": "ai_agents",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/ai_agents.mp4",
+   "title": "What is an AI agent?",
+   "caption": "A chatbot talks. An AI agent acts. Here's the difference in 60 seconds.",
+   "hashtags": [
+    "#ai",
+    "#aiagents",
+    "#artificialintelligence",
+    "#howitworks",
+    "#tech"
+   ],
+   "at": "2026-11-12T12:55:38"
   }
  ],
  "topics_done": [
@@ -425,7 +431,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 32,
+ "counter": 33,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
@@ -450,7 +456,8 @@
   "2026-11-11 17:30",
   "2026-11-11 20:30",
   "2026-11-12 08:30",
-  "2026-11-12 11:30"
+  "2026-11-12 11:30",
+  "2026-11-12 14:30"
  ],
- "cycle": 3
+ "cycle": 4
 }
