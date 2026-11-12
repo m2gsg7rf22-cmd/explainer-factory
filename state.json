@@ -7,7 +7,8 @@
   "airtag",
   "dishwasher",
   "microwave",
-  "noise_cancelling"
+  "noise_cancelling",
+  "wifi_router"
  ],
  "ready": [],
  "posted": [
@@ -362,6 +363,20 @@
     "#didyouknow"
    ],
    "at": "2026-11-12T06:48:28"
+  },
+  {
+   "id": "wifi_router",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/wifi_router.mp4",
+   "title": "How does Wi-Fi turn the internet into invisible waves?",
+   "caption": "Your router turns the internet into invisible radio waves. Here's the full journey from the cable to your phone.",
+   "hashtags": [
+    "#wifi",
+    "#router",
+    "#howitworks",
+    "#didyouknow",
+    "#everydaytech"
+   ],
+   "at": "2026-11-12T09:52:38"
   }
  ],
  "topics_done": [
@@ -410,7 +425,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 31,
+ "counter": 32,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
@@ -434,7 +449,8 @@
   "2026-11-11 14:30",
   "2026-11-11 17:30",
   "2026-11-11 20:30",
-  "2026-11-12 08:30"
+  "2026-11-12 08:30",
+  "2026-11-12 11:30"
  ],
  "cycle": 3
 }
