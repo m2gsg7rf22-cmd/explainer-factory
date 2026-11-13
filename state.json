@@ -2,7 +2,8 @@
  "used": [
   "ai_agents",
   "ai_image",
-  "ai_next_word"
+  "ai_next_word",
+  "airplane_mode"
  ],
  "ready": [],
  "posted": [
@@ -413,6 +414,20 @@
     "#tech"
    ],
    "at": "2026-11-12T18:36:40"
+  },
+  {
+   "id": "airplane_mode",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/airplane_mode.mp4",
+   "title": "What does airplane mode actually do?",
+   "caption": "Your phone is shouting at cell towers all day. Here's what airplane mode really switches off.",
+   "hashtags": [
+    "#airplanemode",
+    "#howitworks",
+    "#didyouknow",
+    "#everydaytech",
+    "#explained"
+   ],
+   "at": "2026-11-13T06:59:22"
   }
  ],
  "topics_done": [
@@ -461,7 +476,7 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 35,
+ "counter": 36,
  "slots_done": [
   "2026-11-07 20:30",
   "2026-11-08 00:30",
@@ -489,7 +504,8 @@
   "2026-11-12 11:30",
   "2026-11-12 14:30",
   "2026-11-12 17:30",
-  "2026-11-12 20:30"
+  "2026-11-12 20:30",
+  "2026-11-13 08:30"
  ],
  "cycle": 4
 }
