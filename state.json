@@ -4,7 +4,8 @@
   "ai_image",
   "ai_next_word",
   "airplane_mode",
-  "airtag"
+  "airtag",
+  "dishwasher"
  ],
  "ready": [],
  "posted": [
@@ -1073,6 +1074,20 @@
     "#everydaytech"
    ],
    "at": "2026-11-22T10:02:25"
+  },
+  {
+   "id": "dishwasher",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/dishwasher.mp4",
+   "title": "How does a dishwasher actually clean?",
+   "caption": "Your dishwasher uses less water than washing by hand. Here's the trick. Follow for more everyday tech explained.",
+   "hashtags": [
+    "#howitworks",
+    "#didyouknow",
+    "#everydaytech",
+    "#science",
+    "#explained"
+   ],
+   "at": "2026-11-22T12:50:56"
   }
  ],
  "topics_done": [
@@ -1121,9 +1136,8 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 82,
+ "counter": 83,
  "slots_done": [
-  "2026-11-10 14:30",
   "2026-11-10 17:30",
   "2026-11-10 20:30",
   "2026-11-11 08:30",
@@ -1182,7 +1196,8 @@
   "2026-11-21 17:30",
   "2026-11-21 20:30",
   "2026-11-22 08:30",
-  "2026-11-22 11:30"
+  "2026-11-22 11:30",
+  "2026-11-22 14:30"
  ],
  "cycle": 9
 }
