@@ -1,6 +1,7 @@
 {
  "used": [
-  "ai_agents"
+  "ai_agents",
+  "ai_image"
  ],
  "ready": [],
  "posted": [
@@ -1139,6 +1140,20 @@
     "#tech"
    ],
    "at": "2026-11-23T09:50:26"
+  },
+  {
+   "id": "ai_image",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/ai_image.mp4",
+   "title": "How does AI turn words into an image?",
+   "caption": "AI image generators start from pure noise and clean it up, step by step. Here's the idea in 60 seconds.",
+   "hashtags": [
+    "#ai",
+    "#aiart",
+    "#midjourney",
+    "#howitworks",
+    "#tech"
+   ],
+   "at": "2026-11-23T12:56:56"
   }
  ],
  "topics_done": [
@@ -1187,9 +1202,8 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 87,
+ "counter": 88,
  "slots_done": [
-  "2026-11-11 14:30",
   "2026-11-11 17:30",
   "2026-11-11 20:30",
   "2026-11-12 08:30",
@@ -1248,7 +1262,8 @@
   "2026-11-22 17:30",
   "2026-11-22 20:30",
   "2026-11-23 08:30",
-  "2026-11-23 11:30"
+  "2026-11-23 11:30",
+  "2026-11-23 14:30"
  ],
  "cycle": 10
 }
