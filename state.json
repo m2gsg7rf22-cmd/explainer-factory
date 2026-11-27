@@ -3,7 +3,8 @@
   "ai_agents",
   "ai_image",
   "ai_next_word",
-  "airplane_mode"
+  "airplane_mode",
+  "airtag"
  ],
  "ready": [],
  "posted": [
@@ -1436,6 +1437,20 @@
     "#explained"
    ],
    "at": "2026-11-27T12:58:26"
+  },
+  {
+   "id": "airtag",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/airtag.mp4",
+   "title": "How does an AirTag find your keys without GPS?",
+   "caption": "An AirTag has no GPS. So how does it find your keys? The answer is millions of strangers' phones.",
+   "hashtags": [
+    "#airtag",
+    "#howitworks",
+    "#didyouknow",
+    "#apple",
+    "#everydaytech"
+   ],
+   "at": "2026-11-27T15:38:33"
   }
  ],
  "topics_done": [
@@ -1484,9 +1499,8 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 109,
+ "counter": 110,
  "slots_done": [
-  "2026-11-15 17:30",
   "2026-11-15 20:30",
   "2026-11-16 08:30",
   "2026-11-16 11:30",
@@ -1545,7 +1559,8 @@
   "2026-11-26 20:30",
   "2026-11-27 08:30",
   "2026-11-27 11:30",
-  "2026-11-27 14:30"
+  "2026-11-27 14:30",
+  "2026-11-27 17:30"
  ],
  "cycle": 12
 }
