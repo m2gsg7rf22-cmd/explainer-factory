@@ -1,7 +1,8 @@
 {
  "used": [
   "ai_agents",
-  "ai_image"
+  "ai_image",
+  "ai_next_word"
  ],
  "ready": [],
  "posted": [
@@ -1406,6 +1407,20 @@
     "#tech"
    ],
    "at": "2026-11-27T06:43:16"
+  },
+  {
+   "id": "ai_next_word",
+   "video": "/home/runner/work/explainer-factory/explainer-factory/out/videos/ai_next_word.mp4",
+   "title": "How does ChatGPT-style AI write a whole answer?",
+   "caption": "AI chatbots don't 'know' the answer. They guess one word at a time. Here's how that turns into a whole essay.",
+   "hashtags": [
+    "#ai",
+    "#chatgpt",
+    "#artificialintelligence",
+    "#howitworks",
+    "#tech"
+   ],
+   "at": "2026-11-27T09:52:52"
   }
  ],
  "topics_done": [
@@ -1454,9 +1469,8 @@
   "https://techcrunch.com/2026/11/06/crusoe-sells-troubled-wyoming-data-center-project-to-google/",
   "https://techcrunch.com/2026/11/06/openai-reportedly-raises-an-additional-11-billion-at-a-1-25-trillion-valuation/"
  ],
- "counter": 107,
+ "counter": 108,
  "slots_done": [
-  "2026-11-15 11:30",
   "2026-11-15 14:30",
   "2026-11-15 17:30",
   "2026-11-15 20:30",
@@ -1515,7 +1529,8 @@
   "2026-11-26 14:30",
   "2026-11-26 17:30",
   "2026-11-26 20:30",
-  "2026-11-27 08:30"
+  "2026-11-27 08:30",
+  "2026-11-27 11:30"
  ],
  "cycle": 12
 }
